@@ -2,7 +2,6 @@ import Link from 'next/link'
 import React from 'react'
 
 export default function ProductItem({product}) {
-    console.log(product.name);
   return (
     <div className="card">
         <Link href={`/product/${product.slug}`}>
