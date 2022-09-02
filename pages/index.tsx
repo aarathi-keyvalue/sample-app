@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../src/components/Layout.js"
+import Layout from "../src/components/Layout"
 import ProductItem from "../src/components/ProductItem"
 import data from "../utils/data"
 import { Container, Header, Main, Footer, Cards } from "@components";
