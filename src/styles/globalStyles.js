@@ -1,5 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
+
+
 const GlobalStyle = createGlobalStyle`
   *,
   *::after,
@@ -12,6 +14,13 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   }
+
+  a{
+    color:inherit;
+    text-decoration: none;
+  }
+ 
+
 `;
 
 export default GlobalStyle;
