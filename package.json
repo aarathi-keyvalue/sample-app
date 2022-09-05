@@ -9,13 +9,14 @@
     "test": "jest -c test/jest.config.js"
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.6",
     "next": "^12.1.6",
+    "next-compose-plugins": "^2.2.1",
+    "next-i18next": "^7.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "next-compose-plugins": "^2.2.1",
-    "styled-components": "^5.2.1",
     "recoil": "^0.1.2",
-    "next-i18next": "^7.0.1"
+    "styled-components": "^5.2.1"
   },
   "devDependencies": {
     "@types/node": "^14.14.13",
