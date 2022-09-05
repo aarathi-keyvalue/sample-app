@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+import { Button } from './button';
 
 export default function ProductItem({product}) {
   return (
@@ -21,9 +22,9 @@ export default function ProductItem({product}) {
             </Link>
             <p className='mb-2'>{product.brand}</p>
             <p>${product.price}</p>
-            <button className='rounded bg-yellow-300 py-2 px-4 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600' type='button'>
+            <Button className=' bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600' type='button'>
                 Add to cart
-            </button>
+            </Button>
            
         </div>
     </div>

@@ -1,5 +1,4 @@
-import React from 'react'
-import { Button } from '..';
+import Button from '@components'
 
 export default function PriceCard({product}) {
     console.log("In Card:", product);
@@ -11,9 +10,9 @@ export default function PriceCard({product}) {
         </div>
         <div className='flex justify-between'>
             <p>Status</p>
-            <p>Unavailable</p>
+            <p>{product.countInStock}</p>
         </div>
-        <Button> Add to cart </Button>
+        <Button className='bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600'> Add to cart </Button>
     </div>
   )
 }
