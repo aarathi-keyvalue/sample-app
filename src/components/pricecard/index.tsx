@@ -34,7 +34,7 @@ export default function PriceCard({product}) {
             <p>{product.countInStock}</p>
         </div>
 
-        <Button onClick={addToCartHandler}> Add to cart </Button>
+        <Button className=' bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600' onClick={addToCartHandler}> Add to cart </Button>
     </div>
   )
 }
