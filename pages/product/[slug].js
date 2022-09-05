@@ -10,9 +10,7 @@ import Link from 'next/link'
 export default function ProductList() {
     const {query} = useRouter();
     const {slug} = query;
-    console.log("slug:", slug);
     const product = data.products.find(item => item.slug===slug)
-    console.log(product)
     if(!product){
         return(
             <Layout>
