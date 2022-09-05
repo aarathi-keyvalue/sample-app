@@ -12,7 +12,7 @@ export default function PriceCard({product}) {
             <p>Status</p>
             <p>{product.countInStock}</p>
         </div>
-        <Button> Add to cart </Button>
+        <Button className='bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600'> Add to cart </Button>
     </div>
   )
 }
