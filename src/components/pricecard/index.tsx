@@ -6,6 +6,7 @@ import {Store} from "../../../utils/Store"
 
 export default function PriceCard({product}) {
 
+
   const { state,dispatch} = useContext(Store);
 
   const router=useRouter();
@@ -30,8 +31,9 @@ export default function PriceCard({product}) {
         </div>
         <div className='flex justify-between'>
             <p>Status</p>
-            <p>Unavailable</p>
+            <p>{product.countInStock}</p>
         </div>
+
         <Button onClick={addToCartHandler}> Add to cart </Button>
     </div>
   )
