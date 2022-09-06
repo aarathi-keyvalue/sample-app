@@ -27,7 +27,7 @@ export default function register() {
                     <label htmlFor='country'>Country</label>
                     <input className=" appearance-none border rounded py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" id="country" autoFocus type="text"></input>
                 </div>
-                <Button className='bg-yellow-400 hover:bg-yellow-600'> Next </Button>
+                <Button className='bg-yellow-400 hover:bg-yellow-600'> <Link href={'/payment'}>Next</Link> </Button>
 
             </form>
 

@@ -7,10 +7,12 @@ export default function register() {
         <Layout title="Login">
             <form className='max-auto max-w-screen-md'>
                 <h1 className='mb-4 text-xl'> Payment Method </h1>
-                <div className='mb-4 flex flex-col'>
-                    <label htmlFor='name'> Full Name </label>
-                    <input className=" appearance-none border rounded py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" id="name" autoFocus type="text"></input>
-                </div>
+                <input type="radio" id="paypal" name="payment" value="paypal"/>
+                <label for="html">PayPal</label> <br/>
+                <input type="radio" id="stripe" name="payment" value="stripe"/>
+                <label for="css">Stripe</label> <br/>
+                <input type="radio" id="cod" name="payment" value="cod"/>
+                <label for="javascript">Cash On Delivery</label> <br/>
                 
                 <Button className='bg-yellow-400 hover:bg-yellow-600'> Next </Button>
 
