@@ -9,7 +9,7 @@ export default function PriceCard({product}) {
 
   const { state,dispatch} = useContext(Store);
 
-  const router=useRouter();
+  // const router=useRouter();
 
     const addToCartHandler = () => {
       const existItem = state.cart.cartItems.find((x)=> x.slug === product.slug);
@@ -20,7 +20,7 @@ export default function PriceCard({product}) {
         return;
       }
         dispatch({type:'CART_ADD_ITEM', payload: {...product, quantity}});
-        router.push('/cart');
+        //router.push('/cart');
     };
 
   return (
