@@ -29,7 +29,7 @@ export default function Layout({ title, children }) {
             <div>
               <Link href="/cart">
                 <a className="p-2">
-                  cart
+                  Cart
                   {cartItemsCount > 0 && (
                     <span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
                       {cartItemsCount}
@@ -38,7 +38,7 @@ export default function Layout({ title, children }) {
                 </a>
               </Link>
               <Link href="/login">
-                <a className="p-2">login</a>
+                <a className="p-2">Login</a>
               </Link>
             </div>
           </nav>
