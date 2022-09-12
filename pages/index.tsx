@@ -13,8 +13,8 @@ const Home: React.FC = () => {
       <Cards />
       <Footer /> */}
       <Layout title="HomePage">
-        <div className="my-5">
-          <SliderComponent></SliderComponent>
+        <div className="my-10 overflow-hidden">
+          <SliderComponent/>
         </div>
  <h1 className="text-2xl my-3">Featured Products</h1>
 
@@ -24,6 +24,7 @@ const Home: React.FC = () => {
           ))}
         </div>
       </Layout>
+
     </Container>
   );
 };
