@@ -22,6 +22,7 @@ export default function SliderComponent() {
         }}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
+        style={{ "--swiper-navigation-size": "20px" }}
       >
         <SwiperSlide>
           <img
@@ -36,7 +37,7 @@ export default function SliderComponent() {
             src="/images/banner2.jpg"
             alt="image slide 2"
           />
-        </SwiperSlide>   
+        </SwiperSlide>
       </Swiper>
     </>
   );
