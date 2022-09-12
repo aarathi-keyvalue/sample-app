@@ -73,14 +73,16 @@ export default function register() {
             </Link>
           </div>
         </div>
-        <div className="flex flex-col justify-between px-6 py-5 border-solid border-2 space-y-2 rounded-lg shadow-md h-1/4 w-1/6"> 
-                  <h1>Order Summary</h1>
-                  <div className="flex justify-between">
-                    <p>Total</p>
-                    <p>${cartItems.reduce((a,c) => a+ c.quantity*c.price, 0)}</p>
-                  </div>
-                  <Button className=' bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600'> Place Order </Button>
-
+        <div className="flex flex-col justify-between px-6 py-5 border-solid border-2 space-y-2 rounded-lg shadow-md h-1/4 w-1/6">
+          <h1>Order Summary</h1>
+          <div className="flex justify-between">
+            <p>Total</p>
+            <p>${cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}</p>
+          </div>
+          <Button className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600">
+            {" "}
+            Place Order{" "}
+          </Button>
         </div>
       </div>
       {/* <Button className="bg-yellow-400 hover:bg-yellow-600 my-5"> Next </Button> */}
