@@ -13,11 +13,14 @@ const Home: React.FC = () => {
       <Cards />
       <Footer /> */}
       <Layout title="HomePage">
+<<<<<<< HEAD
         <div className="my-5">
           <SliderComponent></SliderComponent>
         </div>
  <h1 className="text-2xl my-3">Featured Products</h1>
        
+=======
+>>>>>>> 09e3d8a8f1eb71dc8c18ad94f80013b251946489
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {data.products.map((product) => (
             <ProductItem product={product} key={product.slug}></ProductItem>

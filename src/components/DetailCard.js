@@ -1,14 +1,16 @@
-import React from 'react'
-import ProductList from '../../pages/product/[slug]'
+import React from "react";
+import ProductList from "../../pages/product/[slug]";
 
-export default function DetailCard({product}) {
+export default function DetailCard({ product }) {
   return (
-    <div className='px-6'>
-        <p><b> {product.name} </b></p>
-        <p>Category: {product.category}</p>
-        <p>Brand: {product.brand}</p>
-        <p>Rating: {product.rating}</p>
-        <p>Description: {product.description}</p>
+    <div className="px-6">
+      <p>
+        <b> {product.name} </b>
+      </p>
+      <p>Category: {product.category}</p>
+      <p>Brand: {product.brand}</p>
+      <p>Rating: {product.rating}</p>
+      <p>Description: {product.description}</p>
     </div>
-  )
+  );
 }
