@@ -22,7 +22,7 @@ export default function Layout({ title, children }) {
 
       <div className="flex min-h-screen flex-col justify-between">
         <header>
-          <nav className="flex h-12 items-center px-4 justify-between bg-white shadow-md fixed left-0 right-0">
+          <nav className="flex h-12 items-center px-4 justify-between bg-white shadow-md fixed top-0 left-0 right-0 z-10">
             <Link href="/">
               <a className="text-lg font-bold">amazona</a>
             </Link>
