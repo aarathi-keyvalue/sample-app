@@ -33,8 +33,8 @@ export default function ProductList() {
             <PriceCard product={product} />
           </div>
         </div>
-        <h1>Customer Reviews</h1>
-        <h5>No review found </h5>
+        <h1 className="text-lg">Customer Reviews</h1>
+        <h5 className="text-sm">No review found </h5>
         <ReviewCard />
       </div>
     </Layout>
