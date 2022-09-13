@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function payment() {
   return (
-    <Layout title="Login">
+    <Layout title="Payment">
       <form className="max-auto max-w-screen-md">
         <h1 className="mb-4 text-xl"> Payment Method </h1>
         <div className="flex items-center mb-4">
@@ -30,7 +30,7 @@ export default function payment() {
         </div>
         <div className="flex justify-between">
           <Button className="bg-gray-400 hover:bg-gray-500">
-            <Link href="/place-order">Back</Link>
+            <Link href="/shipping">Back</Link>
           </Button>
           <Button className="bg-yellow-400 hover:bg-yellow-500">
             <Link href="/place-order">Next</Link>

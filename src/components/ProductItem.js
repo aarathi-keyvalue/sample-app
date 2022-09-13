@@ -3,6 +3,7 @@ import React from "react";
 import { useContext } from "react";
 import { Store } from "utils/Store";
 import { Button } from "./button";
+import { useTranslation, Trans } from "react-i18next";
 
 export default function ProductItem({ product }) {
   const { state, dispatch } = useContext(Store);
@@ -20,6 +21,7 @@ export default function ProductItem({ product }) {
     dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
     //router.push('/cart');
   };
+  const { t } = useTranslation();
 
   return (
     <div className="mb-5 block rounded-lg border border-gray-200 shadow-md">
@@ -38,14 +40,14 @@ export default function ProductItem({ product }) {
             <h2 className="text-lg">{product.name}</h2>
           </a>
         </Link>
-        <p className="mb-2">{product.brand}</p>
-        <p>${product.price}</p>
+        <p className="text-sm">{product.brand}</p>
+        <p className="my-2">${product.price}</p>
         <Button
           className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
           onClick={addToCartHandler}
           type="button"
         >
-          Add to cart
+          {t("addtocart")}
         </Button>
       </div>
     </div>

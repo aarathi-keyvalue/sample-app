@@ -53,8 +53,7 @@ export default function shipping() {
           ></input>
         </div>
         <Button className="bg-yellow-400 hover:bg-yellow-600">
-          {" "}
-          <Link href={"/payment"}>Next</Link>{" "}
+          <Link href={"/payment"}>Next</Link>
         </Button>
       </form>
     </Layout>
