@@ -2,7 +2,7 @@ import Layout from "../src/components/Layout";
 import { Button } from "../src/components";
 import Link from "next/link";
 
-export default function register() {
+export default function shipping() {
   return (
     <Layout title="Login">
       <form className="max-auto max-w-screen-md">
@@ -53,8 +53,7 @@ export default function register() {
           ></input>
         </div>
         <Button className="bg-yellow-400 hover:bg-yellow-600">
-          {" "}
-          <Link href={"/payment"}>Next</Link>{" "}
+          <Link href={"/payment"}>Next</Link>
         </Button>
       </form>
     </Layout>
