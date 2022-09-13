@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Store } from "../utils/Store";
 import { useContext } from "react";
 
-export default function register() {
+export default function placeOrder() {
   const { state, dispatch } = useContext(Store);
   const {
     cart: { cartItems },
@@ -81,7 +81,8 @@ export default function register() {
           </div>
           <Button className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600">
             {" "}
-            Place Order{" "}
+            
+            <Link href={"/ordersuccess"}>Place Order</Link>{" "}
           </Button>
         </div>
       </div>

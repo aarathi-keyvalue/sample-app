@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function register() {
   return (
-    <Layout title="Login">
+    <Layout title="Register">
       <form className="max-auto max-w-screen-md">
         <h1 className="mb-4 text-xl"> Create Account </h1>
         <div className="mb-4 flex flex-col">
