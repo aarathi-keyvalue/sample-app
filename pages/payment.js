@@ -2,7 +2,7 @@ import Layout from "../src/components/Layout";
 import { Button } from "../src/components";
 import Link from "next/link";
 
-export default function register() {
+export default function payment() {
   return (
     <Layout title="Login">
       <form className="max-auto max-w-screen-md">

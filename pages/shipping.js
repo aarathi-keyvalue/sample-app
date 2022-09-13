@@ -2,9 +2,9 @@ import Layout from "../src/components/Layout";
 import { Button } from "../src/components";
 import Link from "next/link";
 
-export default function register() {
+export default function shipping() {
   return (
-    <Layout title="Login">
+    <Layout title="Shipping">
       <form className="max-auto max-w-screen-md">
         <h1 className="mb-4 text-xl"> Shipping Address </h1>
         <div className="mb-4 flex flex-col">
