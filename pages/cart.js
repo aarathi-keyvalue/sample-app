@@ -50,7 +50,7 @@ function CartScreen() {
                       <Link href={`/product/${item.slug}`}>
                         <a className="flex items-center">
                           <Image
-                            src={item.image}
+                            src={item.image_url}
                             alt={item.name}
                             width={50}
                             height={50}
@@ -61,7 +61,8 @@ function CartScreen() {
                       </Link>
                     </td>
                     <td className="p-5 text-right">
-                      <select
+                      {item.quantity}
+                      {/* <select
                         value={item.quantity}
                         onChange={(e) =>
                           updateCartHandler(item, e.target.value)
@@ -72,7 +73,7 @@ function CartScreen() {
                             {x + 1}
                           </option>
                         ))}
-                      </select>
+                      </select> */}
                     </td>
 
                     <td className="p-5 text-right">${item.price}</td>

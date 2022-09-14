@@ -18,7 +18,7 @@ export default function PriceCard({ product }) {
     dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
     //router.push('/cart');
   };
-  const status = product.countInStock>0 ? "In Stock" : "Out of Stock";
+  const status = "Available";
   return (
     <div className="flex flex-col justify-between px-6 py-5 border-solid border-2  space-y-2 rounded-lg shadow-md">
       <div className="flex justify-between">
