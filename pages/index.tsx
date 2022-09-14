@@ -12,7 +12,7 @@ const PRODUCT_QUERY = `
     brand
     price
     image_url
-    slug
+    id
   }
 }
 `;
@@ -32,7 +32,7 @@ const Home: React.FC = () => {
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {products.map((product) => (
-            <ProductItem product={product} key={product.slug}></ProductItem>
+            <ProductItem product={product} key={product.id}></ProductItem>
           ))}
         </div>
       </Layout>

@@ -44,9 +44,9 @@ export default function placeOrder() {
               </thead>
               <tbody>
                 {cartItems.map((item) => (
-                  <tr key={item.slug} className="border-b">
+                  <tr key={item.id} className="border-b">
                     <td>
-                      <Link href={`/product/${item.slug}`}>
+                      <Link href={`/product/${item.id}`}>
                         <a className="flex items-center">
                           <Image
                             src={item.image_url}
