@@ -21,9 +21,6 @@ export default function Layout({ title, children }) {
       case "en":
         i18n.changeLanguage("sp");
         break;
-      case "sp":
-        i18n.changeLanguage("it");
-        break;
       default:
         i18n.changeLanguage("en");
         break;
@@ -76,12 +73,5 @@ export default function Layout({ title, children }) {
         </div>
       </>
     </I18nextProvider>
-            </div>
-          </nav>
-        </header>
-        <main className="container m-auto mt-4 px-4">{children}</main>
-        <Footer></Footer>
-      </div>
-    </>
   );
 }

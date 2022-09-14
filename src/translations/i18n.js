@@ -4,7 +4,6 @@ import LanguageDetector from "i18next-browser-languagedetector";
 
 // import { TRANSLATIONS_ZH } from "./zh/translations";
 import { TRANSLATIONS_EN } from "./en/translation";
-import { TRANSLATIONS_IT } from "./it/translation";
 import { TRANSLATIONS_SP } from "./sp/translation";
 
 // const getUserLanguage = () => window.navigator.userLanguage || window.navigator.language;
@@ -33,9 +32,6 @@ i18n
     resources: {
       en: {
         translation: TRANSLATIONS_EN,
-      },
-      it: {
-        translation: TRANSLATIONS_IT,
       },
       sp: {
         translation: TRANSLATIONS_SP,
