@@ -1,16 +1,33 @@
 import { useRouter } from "next/router";
 import React from "react";
 import Layout from "../../src/components/Layout";
-import data from "../../utils/data";
 import PriceCard from "../../src/components/pricecard";
 import ReviewCard from "../../src/components/review";
 import DetailCard from "../../src/components/DetailCard";
 import Link from "next/link";
 
+const PRODUCT_QUERY = `
+{
+  getAllProducts{
+    name
+    category
+    brand
+    rating
+    description
+    price
+    image_url
+    slug
+    id 
+  }
+}
+`;
+
 export default function ProductList() {
+  const products = useProducts();
+
   const { query } = useRouter();
   const { slug } = query;
-  const product = data.products.find((item) => item.slug === slug);
+  const product = products.find((item) => item.slug === slug);
   if (!product) {
     return (
       <Layout>
@@ -24,7 +41,7 @@ export default function ProductList() {
         <Link href="/"> back to products </Link>
         <div className="grid md:grid-cols-4 py-4">
           <div className="md:col-span-2">
-            <img src={product.image} alt={product.name} />
+            <img src={product.image_url} alt={product.name} />
           </div>
           <div className="col-span-1">
             <DetailCard product={product} />
@@ -39,4 +56,19 @@ export default function ProductList() {
       </div>
     </Layout>
   );
+}
+
+function useProducts() {
+  const [products, setProduct] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch("http://localhost:3000/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: PRODUCT_QUERY }),
+    })
+      .then((response) => response.json())
+      .then((data) => setProduct(data.data.getAllProducts));
+  }, []);
+  return products;
 }

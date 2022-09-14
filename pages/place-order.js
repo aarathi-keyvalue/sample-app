@@ -49,7 +49,7 @@ export default function placeOrder() {
                       <Link href={`/product/${item.slug}`}>
                         <a className="flex items-center">
                           <Image
-                            src={item.image}
+                            src={item.image_url}
                             alt={item.name}
                             width={50}
                             height={50}
@@ -81,7 +81,6 @@ export default function placeOrder() {
           </div>
           <Button className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600">
             {" "}
-            
             <Link href={"/ordersuccess"}>Place Order</Link>{" "}
           </Button>
         </div>

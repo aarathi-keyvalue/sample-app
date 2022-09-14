@@ -1,13 +1,27 @@
 import React from "react";
 import Layout from "../src/components/Layout";
 import ProductItem from "../src/components/ProductItem";
-import data from "../utils/data";
-import { Container, Header, Main, Footer, Cards } from "@components";
+import { Container } from "@components";
 import SliderComponent from "../src/components/SliderComponent";
 import { useTranslation, Trans } from "react-i18next";
 
+const PRODUCT_QUERY = `
+{
+  getAllProducts{
+    name
+    brand
+    price
+    image_url
+    slug
+  }
+}
+`;
+
 const Home: React.FC = () => {
+  const products = useProducts();
+
   const { t } = useTranslation();
+
   return (
     <Container>
       <Layout title="HomePage">
@@ -17,7 +31,7 @@ const Home: React.FC = () => {
         <h1 className="text-2xl my-3">{t("featuredproducts")}</h1>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
-          {data.products.map((product) => (
+          {products.map((product) => (
             <ProductItem product={product} key={product.slug}></ProductItem>
           ))}
         </div>
@@ -25,5 +39,20 @@ const Home: React.FC = () => {
     </Container>
   );
 };
+
+function useProducts() {
+  const [products, setProduct] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch("http://localhost:3000/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: PRODUCT_QUERY }),
+    })
+      .then((response) => response.json())
+      .then((data) => setProduct(data.data.getAllProducts));
+  }, []);
+  return products;
+}
 
 export default Home;
