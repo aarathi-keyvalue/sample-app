@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { Store } from "utils/Store";
 import Image from "next/image";
 import { useTranslation, Trans, I18nextProvider } from "react-i18next";
-// import i18n from 'i18n-js';
+import { Footer } from "./footer";
 
 export default function Layout({ title, children }) {
   const { i18n } = useTranslation();
@@ -76,5 +76,15 @@ export default function Layout({ title, children }) {
         </div>
       </>
     </I18nextProvider>
+            </div>
+          </nav>
+        </header>
+        <main className="container m-auto mt-4 px-4">{children}</main>
+        {/* <footer className="flex h-10 justify-center items-center shadow-inner">
+          <p>Copyright © 2022 Amazona</p>
+        </footer> */}
+        <Footer></Footer>
+      </div>
+    </>
   );
 }
