@@ -1,4 +1,4 @@
 export const TRANSLATIONS_SP = {
-  addtocart: "Aggiungi al carrello",
+  addtocart: "Añadir al carrito",
   featuredproducts: "Productos Destacados"
 };
