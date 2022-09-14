@@ -1,5 +1,4 @@
 import React from "react";
-import ProductList from "../../pages/product/[slug]";
 
 export default function DetailCard({ product }) {
   return (

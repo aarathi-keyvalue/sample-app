@@ -11,7 +11,7 @@ export default function ProductItem({ product }) {
   // const router=useRouter();
 
   const addToCartHandler = () => {
-    const existItem = state.cart.cartItems.find((x) => x.slug === product.slug);
+    const existItem = state.cart.cartItems.find((x) => x.id === product.id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
 
     if (product.countInStock < quantity) {
@@ -25,7 +25,7 @@ export default function ProductItem({ product }) {
 
   return (
     <div className="mb-5 block rounded-lg border border-gray-200 shadow-md">
-      <Link href={`/product/${product.slug}`}>
+      <Link href={`/product/${product.id}`}>
         <a>
           <img
             src={product.image_url}
@@ -35,7 +35,7 @@ export default function ProductItem({ product }) {
         </a>
       </Link>
       <div className="flex flex-col items-center justify-center p-5">
-        <Link href={`/product/${product.slug}`}>
+        <Link href={`/product/${product.id}`}>
           <a>
             <h2 className="text-lg">{product.name}</h2>
           </a>

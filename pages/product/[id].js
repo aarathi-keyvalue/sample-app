@@ -16,7 +16,6 @@ const PRODUCT_QUERY = `
     description
     price
     image_url
-    slug
     id 
   }
 }
@@ -26,8 +25,9 @@ export default function ProductList() {
   const products = useProducts();
 
   const { query } = useRouter();
-  const { slug } = query;
-  const product = products.find((item) => item.slug === slug);
+  const { id } = query;
+  console.log(id)
+  const product = products.find((item) => item.id === id);
   if (!product) {
     return (
       <Layout>
