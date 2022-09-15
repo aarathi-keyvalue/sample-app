@@ -7,8 +7,9 @@ import DetailCard from "../../src/components/DetailCard";
 import Link from "next/link";
 
 const PRODUCT_QUERY = `
-{
-  getAllProducts{
+query product($id: String!) {
+  product(id: $id){
+    id
     name
     category
     brand
@@ -16,18 +17,13 @@ const PRODUCT_QUERY = `
     description
     price
     image_url
-    id 
   }
 }
 `;
 
 export default function ProductList() {
-  const products = useProducts();
-
-  const { query } = useRouter();
-  const { id } = query;
-  console.log(id)
-  const product = products.find((item) => item.id === id);
+  const product = useProducts();
+  // const product = products.find((item) => item.id === id);
   if (!product) {
     return (
       <Layout>
@@ -59,16 +55,19 @@ export default function ProductList() {
 }
 
 function useProducts() {
-  const [products, setProduct] = React.useState([]);
+  const [product, setProduct] = React.useState([]);
+
+  const { query } = useRouter();
+  const { id } = query;
 
   React.useEffect(() => {
     fetch("http://localhost:3000/graphql", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: PRODUCT_QUERY }),
+      body: JSON.stringify({ query: PRODUCT_QUERY, variables: { id } }),
     })
       .then((response) => response.json())
-      .then((data) => setProduct(data.data.getAllProducts));
+      .then((data) => setProduct(data.data.product));
   }, []);
-  return products;
+  return product;
 }

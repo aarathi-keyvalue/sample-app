@@ -2,12 +2,9 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
-// import { TRANSLATIONS_ZH } from "./zh/translations";
 import { TRANSLATIONS_EN } from "./en/translation";
 import { TRANSLATIONS_SP } from "./sp/translation";
 
-// const getUserLanguage = () => window.navigator.userLanguage || window.navigator.language;
-// console.log("HEEEEE", getUserLanguage());
 const langDetectorOptions = {
   // order and from where user language should be detected
   order: ["cookie", "localStorage", "navigator"],

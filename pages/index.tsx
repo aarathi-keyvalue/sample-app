@@ -5,7 +5,7 @@ import { Container } from "@components";
 import SliderComponent from "../src/components/SliderComponent";
 import { useTranslation, Trans } from "react-i18next";
 
-const PRODUCT_QUERY = `
+const PRODUCTS_QUERY = `
 {
   getAllProducts{
     name
@@ -47,7 +47,7 @@ function useProducts() {
     fetch("http://localhost:3000/graphql", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: PRODUCT_QUERY }),
+      body: JSON.stringify({ query: PRODUCTS_QUERY }),
     })
       .then((response) => response.json())
       .then((data) => setProduct(data.data.getAllProducts));
