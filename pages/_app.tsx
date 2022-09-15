@@ -4,12 +4,16 @@ import "tailwindcss/tailwind.css";
 import { StyledThemeProvider } from "@definitions/styled-components";
 import { RecoilRoot } from "recoil";
 import { appWithTranslation } from "@i18n";
+import { StoreProvider } from "../utils/Store";
+import "../src/translations/i18n";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <StyledThemeProvider>
       <RecoilRoot>
-        <Component {...pageProps} />
+        <StoreProvider>
+          <Component {...pageProps} />
+        </StoreProvider>
       </RecoilRoot>
     </StyledThemeProvider>
   );
