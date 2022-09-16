@@ -21,9 +21,6 @@ export default function Layout({ title, children }) {
       case "en":
         i18n.changeLanguage("sp");
         break;
-      case "sp":
-        i18n.changeLanguage("it");
-        break;
       default:
         i18n.changeLanguage("en");
         break;
