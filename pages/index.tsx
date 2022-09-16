@@ -33,7 +33,7 @@ export async function getStaticProps() {
   const { data } = await client.query({
     query: gql`
       query Products {
-        getAllProducts{
+        getAllProducts {
           name
           brand
           price
@@ -48,7 +48,7 @@ export async function getStaticProps() {
     props: {
       products: data.getAllProducts,
     },
- };
+  };
 }
 
 export default Home;
