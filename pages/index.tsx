@@ -4,21 +4,11 @@ import ProductItem from "../src/components/ProductItem";
 import { Container } from "@components";
 import SliderComponent from "../src/components/SliderComponent";
 import { useTranslation, Trans } from "react-i18next";
+import { gql } from "@apollo/client";
+import client from "../apollo-client";
 
-const PRODUCT_QUERY = `
-{
-  getAllProducts{
-    name
-    brand
-    price
-    image_url
-    id
-  }
-}
-`;
-
-const Home: React.FC = () => {
-  const products = useProducts();
+const Home: React.FC = ({ products }) => {
+  // const products = useProducts();
 
   const { t } = useTranslation();
 
@@ -40,19 +30,26 @@ const Home: React.FC = () => {
   );
 };
 
-function useProducts() {
-  const [products, setProduct] = React.useState([]);
+export async function getStaticProps() {
+  const { data } = await client.query({
+    query: gql`
+      query Products {
+        getAllProducts {
+          name
+          brand
+          price
+          image_url
+          id
+        }
+      }
+    `,
+  });
 
-  React.useEffect(() => {
-    fetch("http://localhost:3000/graphql", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: PRODUCT_QUERY }),
-    })
-      .then((response) => response.json())
-      .then((data) => setProduct(data.data.getAllProducts));
-  }, []);
-  return products;
+  return {
+    props: {
+      products: data.getAllProducts,
+    },
+  };
 }
 
 export default Home;
