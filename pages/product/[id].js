@@ -1,14 +1,16 @@
 import { useRouter } from "next/router";
+import { gql, ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import React from "react";
 import Layout from "../../src/components/Layout";
 import PriceCard from "../../src/components/pricecard";
 import ReviewCard from "../../src/components/review";
 import DetailCard from "../../src/components/DetailCard";
 import Link from "next/link";
+import client from "../../apollo-client";
 
-const PRODUCT_QUERY = `
-query product($id: String!) {
-  product(id: $id){
+const PRODUCT_QUERY = gql`
+query product($product_id: String!) {
+  product(id: $product_id){
     id
     name
     category
@@ -21,9 +23,7 @@ query product($id: String!) {
 }
 `;
 
-export default function ProductList() {
-  const product = useProducts();
-  // const product = products.find((item) => item.id === id);
+export default function ProductList({product}) {
   if (!product) {
     return (
       <Layout>
@@ -32,7 +32,7 @@ export default function ProductList() {
     );
   }
   return (
-    <Layout title={product.name}>
+    <Layout title="xxx">
       <div className="py-2 h-full">
         <Link href="/"> back to products </Link>
         <div className="grid md:grid-cols-4 py-4">
@@ -54,20 +54,13 @@ export default function ProductList() {
   );
 }
 
-function useProducts() {
-  const [product, setProduct] = React.useState([]);
-
-  const { query } = useRouter();
-  const { id } = query;
-
-  React.useEffect(() => {
-    fetch("http://localhost:3000/graphql", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: PRODUCT_QUERY, variables: { id } }),
-    })
-      .then((response) => response.json())
-      .then((data) => setProduct(data.data.product));
-  }, []);
-  return product;
-}
+export async function getServerSideProps(context){
+  const { id } = context.query;
+  const { data } = await client.query({
+    query: PRODUCT_QUERY,
+    variables: { product_id: id },
+  });
+  return { props: {
+    product: data.product,
+  }, };
+};

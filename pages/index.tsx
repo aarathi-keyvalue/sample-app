@@ -7,8 +7,7 @@ import { useTranslation, Trans } from "react-i18next";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
 
-const Home: React.FC = ({ products }) => {
-  // const products = useProducts();
+const Home: React.FC = ({products}) => {
 
   const { t } = useTranslation();
 
