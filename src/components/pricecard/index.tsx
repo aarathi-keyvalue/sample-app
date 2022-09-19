@@ -3,40 +3,11 @@ import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import { Button } from "..";
 import { Store } from "../../../utils/Store";
-import { gql, useMutation } from "@apollo/client";
-import client from "../../../apollo-client";
-
-const CREATE_CART = gql`
-  mutation CreateCart($input: CreateCartInput!) {
-    createCart(createCartInput: $input) {
-      id
-      cartItems {
-        product {
-          id
-        }
-      }
-      id
-      isOrdered
-    }
-  }
-`;
+import { CreateCart } from "../../../utils/NewCart";
 
 export default function PriceCard({ product }) {
   const { state, dispatch } = useContext(Store);
-  // const [mutateFunction, { data, loading, error }] = useMutation(CREATE_CART);
-  // const result = client.mutate({
-  //   mutation: CREATE_CART,
-  //   variables: { 
-  //       "input": {
-  //       "cartItems": [
-  //         {
-  //           "productId": "529a4bbe-5ec7-4a85-b360-77b681a1b114",
-  //           "quantity": 20
-  //         }
-  //       ]
-  //     }
-  //   }
-  //  })
+
   const addToCartHandler = () => {
     const existItem = state.cart.cartItems.find((x) => x.id === product.id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
@@ -62,19 +33,7 @@ export default function PriceCard({ product }) {
 
       <Button
         className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
-        onClick={() => client.mutate({
-          mutation: CREATE_CART,
-          variables: { 
-              "input": {
-              "cartItems": [
-                {
-                  "productId": "529a4bbe-5ec7-4a85-b360-77b681a1b114",
-                  "quantity": 20
-                }
-              ]
-            }
-          }
-         })}
+        onClick={() => CreateCart(product.id)}
       >
         {" "}
         Add to cart{" "}
