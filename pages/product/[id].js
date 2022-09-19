@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { gql, ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
+import { gql, ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 import React from "react";
 import Layout from "../../src/components/Layout";
 import PriceCard from "../../src/components/pricecard";
@@ -9,21 +9,21 @@ import Link from "next/link";
 import client from "../../apollo-client";
 
 const PRODUCT_QUERY = gql`
-query product($product_id: String!) {
-  product(id: $product_id){
-    id
-    name
-    category
-    brand
-    rating
-    description
-    price
-    image_url
+  query product($product_id: String!) {
+    product(id: $product_id) {
+      id
+      name
+      category
+      brand
+      rating
+      description
+      price
+      image_url
+    }
   }
-}
 `;
 
-export default function ProductList({product}) {
+export default function ProductList({ product }) {
   if (!product) {
     return (
       <Layout>
@@ -32,7 +32,7 @@ export default function ProductList({product}) {
     );
   }
   return (
-    <Layout title="xxx">
+    <Layout title={product.name}>
       <div className="py-2 h-full">
         <Link href="/"> back to products </Link>
         <div className="grid md:grid-cols-4 py-4">
@@ -54,13 +54,15 @@ export default function ProductList({product}) {
   );
 }
 
-export async function getServerSideProps(context){
+export async function getServerSideProps(context) {
   const { id } = context.query;
   const { data } = await client.query({
     query: PRODUCT_QUERY,
     variables: { product_id: id },
   });
-  return { props: {
-    product: data.product,
-  }, };
-};
+  return {
+    props: {
+      product: data.product,
+    },
+  };
+}

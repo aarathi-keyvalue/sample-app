@@ -8,14 +8,18 @@ const initialState = {
     ? JSON.parse(Cookies.get("cart"))
     : { cartItems: [] },
 };
+console.log("Cookies");
+console.log(Cookies.get("cart"));
 
 function reducer(state, action) {
   switch (action.type) {
     case "CART_ADD_ITEM": {
       const newItem = action.payload;
+      console.log("KKKKK", newItem);
       const existItem = state.cart.cartItems.find(
         (item) => item.id === newItem.id
       );
+      console.log("EE", existItem);
       const cartItems = existItem
         ? state.cart.cartItems.map((item) =>
             item.name === existItem.name ? newItem : item
