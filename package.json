@@ -11,6 +11,7 @@
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "@heroicons/react": "^1.0.6",
+    "cookies-next": "^2.1.1",
     "graphql": "^16.6.0",
     "i18n-js": "^4.1.1",
     "js-cookie": "^3.0.1",

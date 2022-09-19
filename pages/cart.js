@@ -7,6 +7,16 @@ import Layout from "../src/components/Layout";
 import { Store } from "../utils/Store";
 import { Router, useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import { gql, useMutation } from "@apollo/client";
+
+const ADD_TO_CART = gql`
+  mutation AddTodo($type: String!) {
+    addTodo(type: $type) {
+      id
+      type
+    }
+  }
+`;
 
 function CartScreen() {
   const router = useRouter();

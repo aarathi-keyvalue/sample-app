@@ -7,8 +7,19 @@ import { useTranslation, Trans } from "react-i18next";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
 
-const Home: React.FC = ({products}) => {
+const PRODUCTS_QUERY = gql`
+  query Products {
+    getAllProducts {
+      name
+      brand
+      price
+      image_url
+      id
+    }
+  }
+`;
 
+const Home: React.FC = ({ products }) => {
   const { t } = useTranslation();
 
   return (
@@ -31,17 +42,7 @@ const Home: React.FC = ({products}) => {
 
 export async function getStaticProps() {
   const { data } = await client.query({
-    query: gql`
-      query Products {
-        getAllProducts {
-          name
-          brand
-          price
-          image_url
-          id
-        }
-      }
-    `,
+    query: PRODUCTS_QUERY,
   });
 
   return {
