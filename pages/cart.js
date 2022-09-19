@@ -4,40 +4,50 @@ import { useContext } from "react";
 import { XCircleIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import Layout from "../src/components/Layout";
-import { Store } from "../utils/Store";
 import { Router, useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import { gql, useMutation } from "@apollo/client";
+// import { gql, useMutation } from "@apollo/client";
+import client from "../apollo-client";
+import { gql } from "@apollo/client";
 
-const ADD_TO_CART = gql`
-  mutation AddTodo($type: String!) {
-    addTodo(type: $type) {
-      id
-      type
+const GET_CART_QUERY = gql`
+  query Cart($id: String!) {
+    getCart(id: $id) {
+      cartItems {
+        id
+        product {
+          id
+          name
+          price
+          image_url
+        }
+        quantity
+      }
+      isOrdered
     }
   }
 `;
 
-function CartScreen() {
-  const router = useRouter();
-  const { state, dispatch } = useContext(Store);
-  const {
-    cart: { cartItems },
-  } = state;
+export default function CartScreen({ cart }) {
+  // const router = useRouter();
+  // const { state, dispatch } = useContext(Store);
+  // const {
+  //   cart: { cartItems },
+  // } = state;
 
-  const updateCartHandler = (item, qty) => {
-    const quantity = Number(qty);
-    dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } });
-  };
+  // const updateCartHandler = (item, qty) => {
+  //   const quantity = Number(qty);
+  //   dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } });
+  // };
 
-  const removeItemHandler = (item) => {
-    dispatch({ type: "CART_REMOVE_ITEM", payload: item });
-  };
+  // const removeItemHandler = (item) => {
+  //   dispatch({ type: "CART_REMOVE_ITEM", payload: item });
+  // };
 
   return (
     <Layout title="Shopping Cart">
       <h1 className="mb-4 text-xl">Shopping Cart</h1>
-      {cartItems.length === 0 ? (
+      {cart.cartItems.length === 0 ? (
         <div>
           Cart is empty. <Link href="/">Go Shopping</Link>
         </div>
@@ -54,19 +64,19 @@ function CartScreen() {
                 </tr>
               </thead>
               <tbody>
-                {cartItems.map((item) => (
-                  <tr key={item.id} className="border-b">
+                {cart.cartItems.map((item) => (
+                  <tr key={item.product.id} className="border-b">
                     <td>
-                      <Link href={`/product/${item.id}`}>
+                      <Link href={`/product/${item.product.id}`}>
                         <a className="flex items-center">
                           <Image
-                            src={item.image_url}
-                            alt={item.name}
+                            src={item.product.image_url}
+                            alt={item.product.name}
                             width={50}
                             height={50}
                           ></Image>
                           &nbsp;
-                          {item.name}
+                          {item.product.name}
                         </a>
                       </Link>
                     </td>
@@ -86,7 +96,7 @@ function CartScreen() {
                       </select> */}
                     </td>
 
-                    <td className="p-5 text-right">${item.price}</td>
+                    <td className="p-5 text-right">${item.product.price}</td>
                     <td className="p-5 text-center">
                       <button onClick={() => removeItemHandler(item)}>
                         <XCircleIcon className="h-5 w-5"></XCircleIcon>
@@ -101,8 +111,9 @@ function CartScreen() {
             <ul>
               <li>
                 <div className="pb-3 text-xl">
-                  Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}) : $
-                  {cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
+                  Subtotal ({cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                  ) : $
+                  {cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
                 </div>
               </li>
               <li>
@@ -121,4 +132,17 @@ function CartScreen() {
   );
 }
 
-export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
+export async function getStaticProps() {
+  const { data } = await client.query({
+    query: GET_CART_QUERY,
+    variables: { id: "5d705d50-4387-44e4-868f-d2ccfd059010" },
+  });
+  console.log(data);
+  return {
+    props: {
+      cart: data.getCart,
+    },
+  };
+}
+
+// export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
