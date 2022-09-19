@@ -8,8 +8,7 @@ const initialState = {
     ? JSON.parse(Cookies.get("cart"))
     : { cartItems: [] },
 };
-console.log("Cookies");
-console.log(Cookies.get("cart"));
+
 
 function reducer(state, action) {
   switch (action.type) {
