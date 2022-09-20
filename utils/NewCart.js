@@ -19,6 +19,17 @@ const CREATE_CART = gql`
   }
 `;
 
+const DELETE_CART = gql`
+  mutation DeleteCart($id: String!) {
+    deleteCartItem(cartItemId: $id) {
+      id
+      product {
+        name
+      }
+    }
+  }
+`;
+
 export async function CreateCart(id) {
   const result = await client.mutate({
     mutation: CREATE_CART,
@@ -34,4 +45,15 @@ export async function CreateCart(id) {
     },
   });
   console.log("Cart created!!!");
+}
+
+export async function DeleteCart(id) {
+  const result = await client.mutate({
+    mutation: DELETE_CART,
+    variables: {
+      id: id,
+    },
+  });
+
+  console.log("Cart Item Deleted!!!");
 }
