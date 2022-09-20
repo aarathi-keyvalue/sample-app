@@ -19,6 +19,18 @@ const CREATE_CART = gql`
   }
 `;
 
+
+const DELETE_CART = gql`
+  mutation DeleteCart($id: String!) {
+    deleteCartItem(cartItemId: $id) {
+      id
+      product {
+        name
+    }
+  }
+`;
+
+
 const ADD_TO_CART = gql`
   mutation AddToCart($input: AddToCartInput!) {
     addToCart(addToCart: $input) {
@@ -30,8 +42,7 @@ const ADD_TO_CART = gql`
       }
     }
   }
-`;
-
+  `;
 export async function CreateCart(id) {
   const result = await client.mutate({
     mutation: CREATE_CART,
@@ -61,4 +72,15 @@ export async function AddToCart(id) {
       }
     },
   });
+}
+
+export async function DeleteCart(id) {
+  const result = await client.mutate({
+    mutation: DELETE_CART,
+    variables: {
+      id: id,
+    },
+  });
+
+  console.log("Cart Item Deleted!!!");
 }
