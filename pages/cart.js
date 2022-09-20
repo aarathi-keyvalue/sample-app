@@ -102,8 +102,7 @@ export default function CartScreen({ cart }) {
                       {/* <select
                         value={item.quantity}
                         onChange={(e) =>
-                          updateCartHandler(item, e.target.value)
-                        }
+                          updateCartHandler(it055cba06-f917-44b2-954d-c3ab3b9dd2fb
                       >
                         {[...Array(item.countInStock).keys()].map((x) => (
                           <option key={x + 1} value={x + 1}>
@@ -124,7 +123,7 @@ export default function CartScreen({ cart }) {
               </tbody>
             </table>
           </div>
-          <div className="mb-5 block rounded-lg border border-gray-200 shadow-md p-5">
+          <div className="mb-5 block rounded-lg border border-gray-200 shadow-md p-5 ">
             <ul>
               <li>
                 <div className="pb-3 text-xl">
@@ -152,10 +151,14 @@ export default function CartScreen({ cart }) {
 export async function getStaticProps() {
   const { data } = await client.query({
     query: GET_CART_QUERY,
+
     variables: { id: "000624ca-da39-4f4c-9057-c1de80c564d6" },
     fetchPolicy: 'no-cache'
   });
   console.log("CART-ID", data.getCart.cartItems.map((item)=>item.id));
+
+   
+
   return {
     props: {
       cart: data.getCart,
