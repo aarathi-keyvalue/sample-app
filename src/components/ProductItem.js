@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { Store } from "utils/Store";
 import { Button } from "./button";
 import { useTranslation, Trans } from "react-i18next";
-import { CreateCart } from "../../utils/NewCart";
+import { AddToCart } from "../../utils/NewCart";
 
 export default function ProductItem({ product }) {
   const { state, dispatch } = useContext(Store);
@@ -43,7 +43,7 @@ export default function ProductItem({ product }) {
         <p className="my-2">${product.price}</p>
         <Button
           className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
-          onClick={() => CreateCart(product.id)}
+          onClick={()=>AddToCart(product.id)}
           type="button"
         >
           {t("addtocart")}
@@ -52,3 +52,7 @@ export default function ProductItem({ product }) {
     </div>
   );
 }
+
+// export async function addToCart(pid) {
+//   setCookie("cartId", await AddToCart(getCookie("cartId"), pid));
+// }
