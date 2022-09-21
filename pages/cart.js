@@ -11,20 +11,8 @@ import client from "../apollo-client";
 import { gql } from "@apollo/client";
 import { DeleteCart } from "../utils/NewCart";
 import { get } from "https";
+import { getCookie } from "cookies-next";
 
-// export async function getCart(){
-//   const { data } = await client.query({
-//     query: GET_CART_QUERY,
-//     variables: { id: "231b1f4c-4cfc-4ce6-b294-aa08e5c41126" },
-//     fetchPolicy: 'no-cache'
-//   });
-//   console.log("data",data);
-//   return {
-//     props: {
-//       cart: data.getCart,
-//     },
-//   };
-// }
 const GET_CART_QUERY = gql`
   query Cart($id: String!) {
     getCart(id: $id) {
@@ -62,7 +50,7 @@ export default function CartScreen({ cart }) {
   // const removeItemHandler = (item) => {
   //   dispatch({ type: "CART_REMOVE_ITEM", payload: item });
   // };
-
+  console.log(getCookie("cartId"));
   return (
     <Layout title="Shopping Cart">
       <h1 className="mb-4 text-xl">Shopping Cart</h1>
@@ -156,15 +144,12 @@ export default function CartScreen({ cart }) {
 }
 
 export async function getStaticProps() {
+  console.log("sefdsgfd", getCookie("cartId"));
   const { data } = await client.query({
     query: GET_CART_QUERY,
-    variables: { id: "99a69c01-3a27-45b5-aa19-ed76db26f8a0" },
+    variables: { id: "dc7e7b1d-0ab1-45ed-9e5a-9c2921acabaf" },
     fetchPolicy: "no-cache",
   });
-  console.log(
-    "ITEM-ID",
-    data.getCart.cartItems.map((item) => item.id)
-  );
 
   return {
     props: {
