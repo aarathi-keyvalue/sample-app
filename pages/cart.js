@@ -12,7 +12,6 @@ import { gql } from "@apollo/client";
 import { DeleteCart } from "../utils/NewCart";
 import { get } from "https";
 
-
 // export async function getCart(){
 //   const { data } = await client.query({
 //     query: GET_CART_QUERY,
@@ -46,7 +45,10 @@ const GET_CART_QUERY = gql`
 `;
 
 export default function CartScreen({ cart }) {
-  // const router = useRouter();
+  const router = useRouter();
+  const refreshData = () => {
+    router.replace(router.asPath);
+  };
   // const { state, dispatch } = useContext(Store);
   // const {
   //   cart: { cartItems },
@@ -114,7 +116,12 @@ export default function CartScreen({ cart }) {
 
                     <td className="p-5 text-right">${item.product.price}</td>
                     <td className="p-5 text-center">
-                      <button onClick={() => DeleteCart(item.id)}>
+                      <button
+                        onClick={() => {
+                          DeleteCart(item.id);
+                          refreshData();
+                        }}
+                      >
                         <XCircleIcon className="h-5 w-5"></XCircleIcon>
                       </button>
                     </td>
@@ -151,19 +158,18 @@ export default function CartScreen({ cart }) {
 export async function getStaticProps() {
   const { data } = await client.query({
     query: GET_CART_QUERY,
-
-    variables: { id: "000624ca-da39-4f4c-9057-c1de80c564d6" },
-    fetchPolicy: 'no-cache'
+    variables: { id: "99a69c01-3a27-45b5-aa19-ed76db26f8a0" },
+    fetchPolicy: "no-cache",
   });
-  console.log("CART-ID", data.getCart.cartItems.map((item)=>item.id));
-
-   
+  console.log(
+    "ITEM-ID",
+    data.getCart.cartItems.map((item) => item.id)
+  );
 
   return {
     props: {
       cart: data.getCart,
     },
-    revalidate:4,
   };
 }
 
