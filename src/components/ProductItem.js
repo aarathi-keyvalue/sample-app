@@ -7,19 +7,19 @@ import { useTranslation, Trans } from "react-i18next";
 import { AddToCart } from "../../utils/NewCart";
 
 export default function ProductItem({ product }) {
-  const { state, dispatch } = useContext(Store);
+  // const { state, dispatch } = useContext(Store);
 
-  const addToCartHandler = () => {
-    const existItem = state.cart.cartItems.find((x) => x.id === product.id);
-    const quantity = existItem ? existItem.quantity + 1 : 1;
+  // const addToCartHandler = () => {
+  //   const existItem = state.cart.cartItems.find((x) => x.id === product.id);
+  //   const quantity = existItem ? existItem.quantity + 1 : 1;
 
-    if (product.countInStock < quantity) {
-      alert("Sorry. Product is out of Stock");
-      return;
-    }
-    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
-    //router.push('/cart');
-  };
+  //   if (product.countInStock < quantity) {
+  //     alert("Sorry. Product is out of Stock");
+  //     return;
+  //   }
+  //   dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
+  //   //router.push('/cart');
+  // };
   const { t } = useTranslation();
 
   return (

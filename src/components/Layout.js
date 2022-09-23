@@ -6,15 +6,25 @@ import { Store } from "utils/Store";
 import Image from "next/image";
 import { useTranslation, Trans, I18nextProvider } from "react-i18next";
 import { Footer } from "./footer";
+import { useAppContext } from "src/context/state";
+import { Router } from "@i18n";
+import { useRouter } from "next/router";
 
 export default function Layout({ title, children }) {
   const { i18n } = useTranslation();
-  const { state } = useContext(Store);
-  const { cart } = state;
-  const [cartItemsCount, setCartItemsCount] = useState(0);
+  const { cartId , setcartId} = useAppContext();
+  console.log("contexttttt", cartId);
+  const router = useRouter();
+  // const { state } = useContext(Store);
+  // const { cart } = state;
+  // const [cartItemsCount, setCartItemsCount] = useState(0);
+  // useEffect(() => {
+  //   setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
+  // }, [cart.cartItems]);
   useEffect(() => {
-    setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
-  }, [cart.cartItems]);
+    setcartId(localStorage.getItem("cartId")?localStorage.getItem("cartId"):"");
+    console.log("blah1", cartId);
+  }, [cartId,setcartId]);
 
   const toggleLang = () => {
     switch (i18n.language) {
@@ -43,16 +53,18 @@ export default function Layout({ title, children }) {
                 <a className="text-lg font-bold">amazona</a>
               </Link>
               <div className="flex">
-                <Link href="/cart">
-                  <a className="p-2">
+              {/* <Link href={`/cart/${cartId}`} as={`/cart/[id]`}> */}
+              {/* <Link href="/cart/[id]" as={`/cart/${cartId}`}> */}
+                {/* <Link href={`/cart/${cartId}`}> */}
+                  <div className="p-2" onClick={()=>router.push(`/cart/${cartId}`)} role="presentation">
                     Cart
-                    {cartItemsCount > 0 && (
+                    {/* {cartItemsCount > 0 && (
                       <span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
                         {cartItemsCount}
                       </span>
-                    )}
-                  </a>
-                </Link>
+                    )} */}
+                  </div>
+                {/* </Link> */}
                 <Link href="/login">
                   <a className="p-2">Login</a>
                 </Link>
@@ -70,7 +82,7 @@ export default function Layout({ title, children }) {
           {/* <footer className="flex h-10 justify-center items-center shadow-inner">
             <p>Copyright © 2022 Amazona</p>
           </footer> */}
-           <Footer/>
+          <Footer />
         </div>
       </>
     </I18nextProvider>
