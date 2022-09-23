@@ -1,17 +1,18 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { useContext } from "react";
 import { XCircleIcon } from "@heroicons/react/outline";
 import Image from "next/image";
-import Layout from "../src/components/Layout";
+import Layout from "../../src/components/Layout";
 import { Router, useRouter } from "next/router";
 import dynamic from "next/dynamic";
 // import { gql, useMutation } from "@apollo/client";
-import client from "../apollo-client";
+import client from "../../apollo-client";
 import { gql } from "@apollo/client";
-import { DeleteCart } from "../utils/NewCart";
+import { DeleteCart } from "../../utils/NewCart";
 import { get } from "https";
 import { getCookie } from "cookies-next";
+import { useAppContext } from "../../src/context/state";
 
 const GET_CART_QUERY = gql`
   query Cart($id: String!) {
@@ -33,10 +34,26 @@ const GET_CART_QUERY = gql`
 `;
 
 export default function CartScreen({ cart }) {
+  useEffect(() => {
+    const id = localStorage.getItem("cartId");
+    console.log("haiii", id);
+  }, []);
+
   const router = useRouter();
   const refreshData = () => {
     router.replace(router.asPath);
+    console.log("path", router);
   };
+
+  const { cartId, setCart } = useAppContext();
+  console.log("contexttttt", cartId);
+  useEffect(() => {
+    setCart(
+      localStorage.getItem("cartId") ? localStorage.getItem("cartId") : ""
+    );
+    console.log("inside cart blah1", cartId);
+  }, [cartId, setCart]);
+
   // const { state, dispatch } = useContext(Store);
   // const {
   //   cart: { cartItems },
@@ -50,7 +67,7 @@ export default function CartScreen({ cart }) {
   // const removeItemHandler = (item) => {
   //   dispatch({ type: "CART_REMOVE_ITEM", payload: item });
   // };
-  console.log(getCookie("cartId"));
+  // console.log(getCookie("cartId"));
   return (
     <Layout title="Shopping Cart">
       <h1 className="mb-4 text-xl">Shopping Cart</h1>
@@ -143,14 +160,17 @@ export default function CartScreen({ cart }) {
   );
 }
 
-export async function getStaticProps() {
-  console.log("sefdsgfd", getCookie("cartId"));
+export async function getServerSideProps(context) {
+  console.log("inside serverside", context);
+  // const { cartId , setcartId} =await useAppContext();
+  const { id } = context.query;
+  console.log("in server side",id);
   const { data } = await client.query({
     query: GET_CART_QUERY,
-    variables: { id: "dc7e7b1d-0ab1-45ed-9e5a-9c2921acabaf" },
+    variables: { id: id },
     fetchPolicy: "no-cache",
   });
-
+console.log("first data", data);
   return {
     props: {
       cart: data.getCart,
