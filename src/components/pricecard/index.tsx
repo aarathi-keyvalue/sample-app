@@ -3,9 +3,14 @@ import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import { Button } from "..";
 import { Store } from "../../../utils/Store";
-import { AddToCart, CreateCart } from "../../../utils/NewCart";
+import { AddToCart } from "../../../utils/NewCart";
 
 export default function PriceCard({ product }) {
+  const router = useRouter();
+  const refreshData = () => {
+    router.replace(router.asPath);
+    // console.log("path", router);
+  };
   // const { state, dispatch } = useContext(Store);
 
   // const addToCartHandler = () => {
@@ -33,7 +38,10 @@ export default function PriceCard({ product }) {
 
       <Button
         className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
-        onClick={() => AddToCart(product.id)}
+        onClick={() => {
+          AddToCart(product.id);
+          refreshData();
+        }}
       >
         {" "}
         Add to cart{" "}
