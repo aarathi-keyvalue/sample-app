@@ -11,16 +11,22 @@ const AppContext = createContext();
 // }
 
 export const AppWrapper = ({ children }) => {
-  const [cartId, setcartId] = useState("");
-  useEffect(() => {
-    setcartId(localStorage.getItem("cartId")?localStorage.getItem("cartId"):"");
-    console.log("blah", cartId);
-  }, [cartId]);
+  const [cartId, setCartId] = useState("");
+  // useEffect(() => {
+  //   setcartId(localStorage.getItem("cartId")?localStorage.getItem("cartId"):"");
+  //   console.log("blah", cartId);
+  // }, [cartId]);
+
+  const setCart = (values) => {
+    setCartId(values)
+   };
+
+   
   return (
     <AppContext.Provider
       value={{
         cartId,
-        setcartId,
+        setCart
       }}
     >
       {children}

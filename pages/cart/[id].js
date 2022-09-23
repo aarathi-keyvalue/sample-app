@@ -45,14 +45,14 @@ export default function CartScreen({ cart }) {
     console.log("path", router);
   };
 
-  const { cartId, setcartId } = useAppContext();
+  const { cartId, setCart } = useAppContext();
   console.log("contexttttt", cartId);
   useEffect(() => {
-    setcartId(
+    setCart(
       localStorage.getItem("cartId") ? localStorage.getItem("cartId") : ""
     );
-    console.log("blah1", cartId);
-  }, [cartId, setcartId]);
+    console.log("inside cart blah1", cartId);
+  }, [cartId, setCart]);
 
   // const { state, dispatch } = useContext(Store);
   // const {
@@ -161,6 +161,7 @@ export default function CartScreen({ cart }) {
 }
 
 export async function getServerSideProps(context) {
+  console.log("inside serverside", context);
   // const { cartId , setcartId} =await useAppContext();
   const { id } = context.query;
   console.log("in server side",id);

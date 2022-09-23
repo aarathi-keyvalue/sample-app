@@ -12,9 +12,9 @@ import { useRouter } from "next/router";
 
 export default function Layout({ title, children }) {
   const { i18n } = useTranslation();
-  const { cartId , setcartId} = useAppContext();
+  const { cartId , setCart} = useAppContext();
   console.log("contexttttt", cartId);
-  const router = useRouter();
+  // const router = useRouter();
   // const { state } = useContext(Store);
   // const { cart } = state;
   // const [cartItemsCount, setCartItemsCount] = useState(0);
@@ -22,9 +22,9 @@ export default function Layout({ title, children }) {
   //   setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
   // }, [cart.cartItems]);
   useEffect(() => {
-    setcartId(localStorage.getItem("cartId")?localStorage.getItem("cartId"):"");
-    console.log("blah1", cartId);
-  }, [cartId,setcartId]);
+    setCart(localStorage.getItem("cartId")?localStorage.getItem("cartId"):"");
+    console.log("inside layout blah1", cartId);
+  }, [cartId,setCart]);
 
   const toggleLang = () => {
     switch (i18n.language) {
@@ -55,16 +55,18 @@ export default function Layout({ title, children }) {
               <div className="flex">
               {/* <Link href={`/cart/${cartId}`} as={`/cart/[id]`}> */}
               {/* <Link href="/cart/[id]" as={`/cart/${cartId}`}> */}
-                {/* <Link href={`/cart/${cartId}`}> */}
-                  <div className="p-2" onClick={()=>router.push(`/cart/${cartId}`)} role="presentation">
+                <Link href={`/cart/${cartId}`}>
+                  {/* <div className="p-2" onClick={()=>router.push(`/cart/${cartId}`)} role="presentation"> */}
+                  <a className="p-2">
                     Cart
                     {/* {cartItemsCount > 0 && (
                       <span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
                         {cartItemsCount}
                       </span>
                     )} */}
-                  </div>
-                {/* </Link> */}
+                  {/* </div> */}
+                  </a>
+                </Link>
                 <Link href="/login">
                   <a className="p-2">Login</a>
                 </Link>

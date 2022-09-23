@@ -61,7 +61,7 @@ export async function AddToCart(pId) {
     },
   });
   localStorage.setItem("cartId", result.data.addToCart.id);
-
+  location.reload();
   // setCookie("cartId", result.data.addToCart.id);
   return result.data.addToCart.id;
 }
