@@ -5,8 +5,15 @@ import { Store } from "utils/Store";
 import { Button } from "./button";
 import { useTranslation, Trans } from "react-i18next";
 import { AddToCart } from "../../utils/NewCart";
+import { useRouter } from "next/router";
 
 export default function ProductItem({ product }) {
+  // const router = useRouter();
+  //  async function refreshData () {
+  //   await router.replace(router.asPath);
+  //   console.log("helllooooooiiii refreshingnggggggt");
+  //   // console.log("path", router);
+  // };
   // const { state, dispatch } = useContext(Store);
 
   // const addToCartHandler = () => {
@@ -43,7 +50,7 @@ export default function ProductItem({ product }) {
         <p className="my-2">${product.price}</p>
         <Button
           className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
-          onClick={()=>AddToCart(product.id)}
+          onClick={()=>{AddToCart(product.id);}}
           type="button"
         >
           {t("addtocart")}

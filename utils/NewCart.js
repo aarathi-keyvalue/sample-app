@@ -1,7 +1,7 @@
 import { setCookie, getCookie } from "cookies-next";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
-import { CartScreen } from "../pages/cart/[id]";
+import { CartScreen } from "../pages/cart";
 
 setCookie("cart", { cartItems: [], id: String });
 
@@ -61,7 +61,7 @@ export async function AddToCart(pId) {
     },
   });
   localStorage.setItem("cartId", result.data.addToCart.id);
-  location.reload();
+  // location.reload();
   // setCookie("cartId", result.data.addToCart.id);
   return result.data.addToCart.id;
 }
