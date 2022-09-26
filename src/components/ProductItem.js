@@ -50,7 +50,7 @@ export default function ProductItem({ product }) {
         <p className="my-2">${product.price}</p>
         <Button
           className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
-          onClick={()=>{AddToCart(product.id);}}
+          onClick={() => AddToCart(product.id)}
           type="button"
         >
           {t("addtocart")}

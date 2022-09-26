@@ -37,16 +37,18 @@ export default function CartScreen() {
   const [cart, setCart] = useState();
   useEffect(() => {
     getCart().then((data) => {
-      setCart(data);
+      if (data !== cart) setCart(data);
     });
-  },[]);
+  }, []);
   console.log("Asdsfvd", cart?.id);
-
 
   const router = useRouter();
   const refreshData = () => {
-    console.log("cart",router.asPath);
-    router.replace(router.asPath);
+    // history.go();
+    router.push("/cart");
+    // window.location.href = window.location.href;
+    // router.replace(router.asPath);
+    // window.location.reload(false);
   };
 
   // const { state, dispatch } = useContext(Store);
@@ -119,7 +121,8 @@ export default function CartScreen() {
                       <button
                         onClick={() => {
                           DeleteCart(item.id);
-                          refreshData();
+                          // refreshData();
+                          console.log("hello item", item);
                         }}
                       >
                         <XCircleIcon className="h-5 w-5"></XCircleIcon>

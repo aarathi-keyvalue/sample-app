@@ -66,7 +66,6 @@ export async function AddToCart(pId) {
   return result.data.addToCart.id;
 }
 
-
 export async function DeleteCart(id) {
   const result = await client.mutate({
     mutation: DELETE_CART,
