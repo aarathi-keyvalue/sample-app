@@ -121,7 +121,8 @@ export default function CartScreen() {
                       <button
                         onClick={() => {
                           DeleteCart(item.id);
-                          refreshData();
+                          // refreshData();
+                          console.log("hello item", item);
                         }}
                       >
                         <XCircleIcon className="h-5 w-5"></XCircleIcon>
