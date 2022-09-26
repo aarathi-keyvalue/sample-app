@@ -18,15 +18,14 @@ export const AppWrapper = ({ children }) => {
   // }, [cartId]);
 
   const setCart = (values) => {
-    setCartId(values)
-   };
+    setCartId(values);
+  };
 
-   
   return (
     <AppContext.Provider
       value={{
         cartId,
-        setCart
+        setCart,
       }}
     >
       {children}
