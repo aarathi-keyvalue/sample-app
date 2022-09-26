@@ -46,11 +46,13 @@ const ADD_TO_CART = gql`
 // }
 
 export async function AddToCart(pId) {
+  let id = localStorage.getItem("cartId");
+  id = id ? id : "";
   const result = await client.mutate({
     mutation: ADD_TO_CART,
     variables: {
       input: {
-        id: getCookie("cartId"),
+        id: id,
         cartItem: {
           productId: pId,
           quantity: 1,
@@ -58,7 +60,9 @@ export async function AddToCart(pId) {
       },
     },
   });
-  setCookie("cartId", result.data.addToCart.id);
+  localStorage.setItem("cartId", result.data.addToCart.id);
+  // location.reload();
+  // setCookie("cartId", result.data.addToCart.id);
   return result.data.addToCart.id;
 }
 

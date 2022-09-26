@@ -1,17 +1,18 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { useContext } from "react";
 import { XCircleIcon } from "@heroicons/react/outline";
 import Image from "next/image";
-import Layout from "../src/components/Layout";
+import Layout from "../../src/components/Layout";
 import { Router, useRouter } from "next/router";
 import dynamic from "next/dynamic";
 // import { gql, useMutation } from "@apollo/client";
-import client from "../apollo-client";
+import client from "../../apollo-client";
 import { gql } from "@apollo/client";
-import { DeleteCart } from "../utils/NewCart";
+import { DeleteCart } from "../../utils/NewCart";
 import { get } from "https";
 import { getCookie } from "cookies-next";
+import { useAppContext } from "../../src/context/state";
 
 const GET_CART_QUERY = gql`
   query Cart($id: String!) {
@@ -31,12 +32,36 @@ const GET_CART_QUERY = gql`
     }
   }
 `;
+// const CartScreen = async() => {
 
-export default function CartScreen({ cart }) {
+export default async function CartScreen({cart={}}) {
+  useEffect(() => {
+    const id = localStorage.getItem("cartId");
+    console.log("haiii", id);
+  }, []);
+  const { data } = await client.query({
+        query: GET_CART_QUERY,
+        variables: { id: "06bfc467-2428-40b7-9732-702e757ff58e" },
+        fetchPolicy: "no-cache",
+      });
+    
+      console.log("data printed", data);
+ 
+
   const router = useRouter();
   const refreshData = () => {
     router.replace(router.asPath);
   };
+
+  const { cartId, setCart } = useAppContext();
+  console.log("contexttttt inside cart screen", cartId);
+  useEffect(() => {
+    setCart(
+      localStorage.getItem("cartId") ? localStorage.getItem("cartId") : ""
+    );
+    console.log("inside cart blah1 cartid", cartId);
+  }, [cartId, setCart]);
+
   // const { state, dispatch } = useContext(Store);
   // const {
   //   cart: { cartItems },
@@ -50,11 +75,11 @@ export default function CartScreen({ cart }) {
   // const removeItemHandler = (item) => {
   //   dispatch({ type: "CART_REMOVE_ITEM", payload: item });
   // };
-  console.log(getCookie("cartId"));
+  // console.log(getCookie("cartId"));
   return (
     <Layout title="Shopping Cart">
       <h1 className="mb-4 text-xl">Shopping Cart</h1>
-      {cart.cartItems.length === 0 ? (
+      {cart.cartItems?.length === 0 ? (
         <div>
           Cart is empty. <Link href="/">Go Shopping</Link>
         </div>
@@ -71,7 +96,7 @@ export default function CartScreen({ cart }) {
                 </tr>
               </thead>
               <tbody>
-                {cart.cartItems.map((item) => (
+                {cart.cartItems?.map((item) => (
                   <tr key={item.product.id} className="border-b">
                     <td>
                       <Link href={`/product/${item.product.id}`}>
@@ -122,9 +147,9 @@ export default function CartScreen({ cart }) {
             <ul>
               <li>
                 <div className="pb-3 text-xl">
-                  Subtotal ({cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                  Subtotal ({cart.cartItems?.reduce((a, c) => a + c.quantity, 0)}
                   ) : $
-                  {cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
+                  {cart.cartItems?.reduce((a, c) => a + c.quantity * c.price, 0)}
                 </div>
               </li>
               <li>
@@ -143,19 +168,22 @@ export default function CartScreen({ cart }) {
   );
 }
 
-export async function getStaticProps() {
-  console.log("sefdsgfd", getCookie("cartId"));
-  const { data } = await client.query({
-    query: GET_CART_QUERY,
-    variables: { id: "dc7e7b1d-0ab1-45ed-9e5a-9c2921acabaf" },
-    fetchPolicy: "no-cache",
-  });
-
-  return {
-    props: {
-      cart: data.getCart,
-    },
-  };
-}
+// export async function getServerSideProps(context) {
+//   console.log("inside serverside context", context);
+//   // const { cartId , setcartId} =await useAppContext();
+//   const { id } = context.query;
+//   console.log("in server side id",id);
+//   const { data } = await client.query({
+//     query: GET_CART_QUERY,
+//     variables: { id: id },
+//     fetchPolicy: "no-cache",
+//   });
+// console.log("first data", data);
+//   return {
+//     props: {
+//       cart: data.getCart,
+//     },
+//   };
+// }
 
 // export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
