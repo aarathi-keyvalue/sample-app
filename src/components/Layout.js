@@ -21,10 +21,10 @@ export default function Layout({ title, children }) {
   // useEffect(() => {
   //   setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
   // }, [cart.cartItems]);
-  useEffect(() => {
-    setCart(localStorage.getItem("cartId")?localStorage.getItem("cartId"):"");
-    console.log("inside layout blah1", cartId);
-  }, [cartId,setCart]);
+  // useEffect(() => {
+  //   setCart(localStorage.getItem("cartId")?localStorage.getItem("cartId"):"");
+  //   console.log("inside layout blah1", cartId);
+  // }, [cartId,setCart]);
 
   const toggleLang = () => {
     switch (i18n.language) {

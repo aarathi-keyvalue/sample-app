@@ -37,15 +37,17 @@ export default function CartScreen() {
   const [cart, setCart] = useState();
   useEffect(() => {
     getCart().then((data) => {
-      setCart(data);
+      console.log("data", data);
+      console.log("cart", cart);
+      if (data !== cart) setCart(data);
     });
-  },[]);
-  console.log("Asdsfvd", cart?.id);
+  }, [cart]);
 
+  console.log("Asdsfvd", cart?.id);
 
   const router = useRouter();
   const refreshData = () => {
-    console.log("cart",router.asPath);
+    console.log("cart", router.asPath);
     router.replace(router.asPath);
   };
 
