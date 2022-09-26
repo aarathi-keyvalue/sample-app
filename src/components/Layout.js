@@ -21,10 +21,10 @@ export default function Layout({ title, children }) {
   // useEffect(() => {
   //   setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
   // }, [cart.cartItems]);
-  useEffect(() => {
-    setCart(localStorage.getItem("cartId")?localStorage.getItem("cartId"):"");
-    console.log("inside layout blah1", cartId);
-  }, [cartId,setCart]);
+  // useEffect(() => {
+  //   setCart(localStorage.getItem("cartId")?localStorage.getItem("cartId"):"");
+  //   console.log("inside layout blah1", cartId);
+  // }, [cartId,setCart]);
 
   const toggleLang = () => {
     switch (i18n.language) {
@@ -55,7 +55,7 @@ export default function Layout({ title, children }) {
               <div className="flex">
               {/* <Link href={`/cart/${cartId}`} as={`/cart/[id]`}> */}
               {/* <Link href="/cart/[id]" as={`/cart/${cartId}`}> */}
-                <Link href={`/cart/${cartId}`}>
+                <Link href={'/cart'}>
                   {/* <div className="p-2" onClick={()=>router.push(`/cart/${cartId}`)} role="presentation"> */}
                   <a className="p-2">
                     Cart

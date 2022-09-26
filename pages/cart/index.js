@@ -1,10 +1,10 @@
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { XCircleIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import Layout from "../../src/components/Layout";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 // import { gql, useMutation } from "@apollo/client";
 import client from "../../apollo-client";
@@ -32,35 +32,24 @@ const GET_CART_QUERY = gql`
     }
   }
 `;
-// const CartScreen = async() => {
 
-export default async function CartScreen({cart={}}) {
+export default function CartScreen() {
+  const [cart, setCart] = useState();
   useEffect(() => {
-    const id = localStorage.getItem("cartId");
-    console.log("haiii", id);
-  }, []);
-  const { data } = await client.query({
-        query: GET_CART_QUERY,
-        variables: { id: "06bfc467-2428-40b7-9732-702e757ff58e" },
-        fetchPolicy: "no-cache",
-      });
-    
-      console.log("data printed", data);
- 
+    getCart().then((data) => {
+      console.log("data", data);
+      console.log("cart", cart);
+      if (data !== cart) setCart(data);
+    });
+  }, [cart]);
+
+  console.log("Asdsfvd", cart?.id);
 
   const router = useRouter();
   const refreshData = () => {
+    console.log("cart", router.asPath);
     router.replace(router.asPath);
   };
-
-  const { cartId, setCart } = useAppContext();
-  console.log("contexttttt inside cart screen", cartId);
-  useEffect(() => {
-    setCart(
-      localStorage.getItem("cartId") ? localStorage.getItem("cartId") : ""
-    );
-    console.log("inside cart blah1 cartid", cartId);
-  }, [cartId, setCart]);
 
   // const { state, dispatch } = useContext(Store);
   // const {
@@ -79,7 +68,7 @@ export default async function CartScreen({cart={}}) {
   return (
     <Layout title="Shopping Cart">
       <h1 className="mb-4 text-xl">Shopping Cart</h1>
-      {cart.cartItems?.length === 0 ? (
+      {cart?.cartItems.length === 0 ? (
         <div>
           Cart is empty. <Link href="/">Go Shopping</Link>
         </div>
@@ -96,7 +85,7 @@ export default async function CartScreen({cart={}}) {
                 </tr>
               </thead>
               <tbody>
-                {cart.cartItems?.map((item) => (
+                {cart?.cartItems.map((item) => (
                   <tr key={item.product.id} className="border-b">
                     <td>
                       <Link href={`/product/${item.product.id}`}>
@@ -147,9 +136,12 @@ export default async function CartScreen({cart={}}) {
             <ul>
               <li>
                 <div className="pb-3 text-xl">
-                  Subtotal ({cart.cartItems?.reduce((a, c) => a + c.quantity, 0)}
-                  ) : $
-                  {cart.cartItems?.reduce((a, c) => a + c.quantity * c.price, 0)}
+                  Subtotal (
+                  {cart?.cartItems.reduce((a, c) => a + c.quantity, 0)}) : $
+                  {cart?.cartItems.reduce(
+                    (a, c) => a + c.quantity * c.price,
+                    0
+                  )}
                 </div>
               </li>
               <li>
@@ -168,22 +160,16 @@ export default async function CartScreen({cart={}}) {
   );
 }
 
-// export async function getServerSideProps(context) {
-//   console.log("inside serverside context", context);
-//   // const { cartId , setcartId} =await useAppContext();
-//   const { id } = context.query;
-//   console.log("in server side id",id);
-//   const { data } = await client.query({
-//     query: GET_CART_QUERY,
-//     variables: { id: id },
-//     fetchPolicy: "no-cache",
-//   });
-// console.log("first data", data);
-//   return {
-//     props: {
-//       cart: data.getCart,
-//     },
-//   };
-// }
+export async function getCart() {
+  const id = localStorage.getItem("cartId");
+  console.log("in server side id", id);
+  const { data } = await client.query({
+    query: GET_CART_QUERY,
+    variables: { id: id },
+    fetchPolicy: "no-cache",
+  });
+  console.log("first data", data);
+  return data.getCart;
+}
 
 // export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
