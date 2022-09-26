@@ -37,18 +37,18 @@ export default function CartScreen() {
   const [cart, setCart] = useState();
   useEffect(() => {
     getCart().then((data) => {
+      console.log("data", data);
+      console.log("cart", cart);
       if (data !== cart) setCart(data);
     });
-  }, []);
+  }, [cart]);
+
   console.log("Asdsfvd", cart?.id);
 
   const router = useRouter();
   const refreshData = () => {
-    // history.go();
-    router.push("/cart");
-    // window.location.href = window.location.href;
-    // router.replace(router.asPath);
-    // window.location.reload(false);
+    console.log("cart", router.asPath);
+    router.replace(router.asPath);
   };
 
   // const { state, dispatch } = useContext(Store);
