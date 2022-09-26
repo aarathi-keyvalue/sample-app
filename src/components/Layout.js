@@ -55,7 +55,7 @@ export default function Layout({ title, children }) {
               <div className="flex">
               {/* <Link href={`/cart/${cartId}`} as={`/cart/[id]`}> */}
               {/* <Link href="/cart/[id]" as={`/cart/${cartId}`}> */}
-                <Link href={`/cart/${cartId}`}>
+                <Link href={'/cart'}>
                   {/* <div className="p-2" onClick={()=>router.push(`/cart/${cartId}`)} role="presentation"> */}
                   <a className="p-2">
                     Cart
