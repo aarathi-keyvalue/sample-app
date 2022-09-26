@@ -12,7 +12,7 @@ export const Button: React.FC<IButton> = ({
 }) => {
   return (
     <button
-      className={`py-2 px-4 rounded bg-yellow-500 hover:bg-yellow-600 focus:outline-none ring-opacity-75 ring-yellow-400 focus:ring text-white text-lg ${className}`}
+      className={`py-2 px-4 rounded ring-opacity-75 focus:ring focus:outline-none text-lg ${className}`}
       {...rest}
     >
       {children}
