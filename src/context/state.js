@@ -12,10 +12,6 @@ const AppContext = createContext();
 
 export const AppWrapper = ({ children }) => {
   const [cartId, setCartId] = useState("");
-  // useEffect(() => {
-  //   setcartId(localStorage.getItem("cartId")?localStorage.getItem("cartId"):"");
-  //   console.log("blah", cartId);
-  // }, [cartId]);
 
   const setCart = (values) => {
     setCartId(values);
