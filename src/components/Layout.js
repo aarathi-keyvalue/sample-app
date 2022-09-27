@@ -6,7 +6,6 @@ import { Store } from "utils/Store";
 import Image from "next/image";
 import { useTranslation, Trans, I18nextProvider } from "react-i18next";
 import { Footer } from "./footer";
-import { useAppContext } from "src/context/state";
 import { Router } from "@i18n";
 import { useRouter } from "next/router";
 
