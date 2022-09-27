@@ -36,15 +36,17 @@ const GET_CART_QUERY = gql`
 export default function CartScreen() {
   const [cart, setCart] = useState();
   useEffect(() => {
+    fetchCart();
+  }, []);
+
+  console.log("Asdsfvd", cart?.id);
+  function fetchCart(){
     getCart().then((data) => {
       console.log("data", data);
       console.log("cart", cart);
-      if (data !== cart) setCart(data);
+      setCart(data);
     });
-  }, [cart]);
-
-  console.log("Asdsfvd", cart?.id);
-
+  }
   const router = useRouter();
   const refreshData = () => {
     console.log("cart", router.asPath);
@@ -120,8 +122,9 @@ export default function CartScreen() {
                     <td className="p-5 text-center">
                       <button
                         onClick={() => {
-                          DeleteCart(item.id);
+                          DeleteCart(item.id).then(fetchCart);
                           // refreshData();
+                          
                           console.log("hello item", item);
                         }}
                       >
