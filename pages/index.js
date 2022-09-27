@@ -19,7 +19,7 @@ const PRODUCTS_QUERY = gql`
   }
 `;
 
-const Home: React.FC = ({ products }) => {
+const Home = ({ products }) => {
   const { t } = useTranslation();
 
   return (
