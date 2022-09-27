@@ -5,7 +5,7 @@ export const Footer: React.FC = () => {
   return (
     <div className="py-2 bg-gray-800">
       <div className="text-white flex h-10 justify-center items-center shadow-inner">
-        <p>Copyright © 2022 Amazona</p>
+        <p>Copyright © 2022 Mufti</p>
       </div>
       <div className="text-center">
         {/* <a
