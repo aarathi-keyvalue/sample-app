@@ -29,6 +29,35 @@ const ADD_TO_CART = gql`
   }
 `;
 
+const GET_CART_QUERY = gql`
+  query Cart($id: String!) {
+    getCart(id: $id) {
+      id
+      cartItems {
+        id
+        product {
+          id
+          name
+          price
+          image_url
+        }
+        quantity
+      }
+      isOrdered
+    }
+  }
+`;
+
+export async function getCart() {
+  const id = localStorage.getItem("cartId");
+  const { data } = await client.query({
+    query: GET_CART_QUERY,
+    variables: { id: id },
+    fetchPolicy: "no-cache",
+  });
+  return data.getCart;
+}
+
 // export async function AddToCart(pId) {
 //   const result = await client.mutate({
 //     mutation: ADD_TO_CART,
@@ -73,5 +102,4 @@ export async function DeleteCart(id) {
   });
 
   console.log("Cart Item Deleted!!!");
-
 }
