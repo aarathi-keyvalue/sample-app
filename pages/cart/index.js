@@ -16,6 +16,12 @@ export default function CartScreen() {
     fetchCart();
   }, []);
 
+  let total = 0;
+
+  function fetchTotal(qnty, pr) {
+    total = total + qnty * pr;
+  }
+
   function fetchCart() {
     getCart().then((data) => {
       setCart(data);
@@ -93,12 +99,11 @@ export default function CartScreen() {
             <ul>
               <li>
                 <div className="pb-3 text-xl">
-                  Subtotal (
-                  {cart?.cartItems.reduce((a, c) => a + c.quantity, 0)}) : $
-                  {cart?.cartItems.reduce(
-                    (a, c) => a + c.quantity * c.price,
-                    0
+                  Total : $
+                  {cart?.cartItems.map((item) =>
+                    fetchTotal(item.quantity, item.product.price)
                   )}
+                  {total}
                 </div>
               </li>
               <li>

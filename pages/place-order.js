@@ -17,6 +17,12 @@ export default function placeOrder() {
     });
   }
 
+  let total = 0;
+
+  function fetchTotal(qnty, pr) {
+    total = total + qnty * pr;
+  }
+
   return (
     <Layout title="Place Order">
       {/* <form className='max-auto max-w-screen-md'> */}
@@ -84,7 +90,10 @@ export default function placeOrder() {
           <div className="flex justify-between">
             <p>Total</p>
             <p>
-              ${cart?.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
+              ${cart?.cartItems.map((item) =>
+                    fetchTotal(item.quantity, item.product.price)
+                  )}
+                  {total}
             </p>
           </div>
           <Button className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600">
