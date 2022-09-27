@@ -6,10 +6,10 @@ import { Store } from "../utils/Store";
 import { useContext } from "react";
 
 export default function placeOrder() {
-  const { state, dispatch } = useContext(Store);
-  const {
-    cart: { cartItems },
-  } = state;
+  // const { state, dispatch } = useContext(Store);
+  // const {
+  //   cart: { cartItems },
+  // } = state;
 
   return (
     <Layout title="Place Order">
