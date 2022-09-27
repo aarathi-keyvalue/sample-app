@@ -8,25 +8,7 @@ import { AddToCart } from "../../utils/NewCart";
 import { useRouter } from "next/router";
 
 export default function ProductItem({ product }) {
-  // const router = useRouter();
-  //  async function refreshData () {
-  //   await router.replace(router.asPath);
-  //   console.log("helllooooooiiii refreshingnggggggt");
-  //   // console.log("path", router);
-  // };
-  // const { state, dispatch } = useContext(Store);
-
-  // const addToCartHandler = () => {
-  //   const existItem = state.cart.cartItems.find((x) => x.id === product.id);
-  //   const quantity = existItem ? existItem.quantity + 1 : 1;
-
-  //   if (product.countInStock < quantity) {
-  //     alert("Sorry. Product is out of Stock");
-  //     return;
-  //   }
-  //   dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
-  //   //router.push('/cart');
-  // };
+  
   const { t } = useTranslation();
 
   return (
