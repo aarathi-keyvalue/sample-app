@@ -5,6 +5,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { getCart } from "../utils/NewCart";
 import { placeTheOrder } from "../utils/NewCart";
+import { useRouter } from "next/router";
 
 var obj = {
   name: "Mirza",
@@ -17,6 +18,9 @@ var obj = {
 };
 
 export default function placeOrder() {
+  const router = useRouter();
+  const customer = router.query;
+  console.log("In place-order", customer);
   const [cart, setCart] = useState();
   useEffect(() => {
     fetchCart();
@@ -44,9 +48,10 @@ export default function placeOrder() {
             <h2> Shipping Address </h2>
             <p>
               {" "}
-              {obj.name}
-              <br /> {obj.address}, {obj.city}, {obj.country}, {obj.pincode}
-              <br /> {obj.mobileNumber}{" "}
+              {customer.name}
+              <br /> {customer.address}, {customer.city}, {customer.country},{" "}
+              {customer.pincode}
+              <br /> {customer.mobileNumber}{" "}
             </p>
             <Link href="/shipping">
               <a className="text-blue-600">Edit</a>
@@ -115,7 +120,10 @@ export default function placeOrder() {
           </div>
           <Button
             className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
-            onClick={() => placeTheOrder(obj)}
+            onClick={() => {
+              placeTheOrder(customer);
+              // localStorage.removeItem('cartId');
+            }}
           >
             {" "}
             {/* Place Order  */}
