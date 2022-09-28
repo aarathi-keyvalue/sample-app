@@ -4,6 +4,17 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { getCart } from "../utils/NewCart";
+import { placeTheOrder } from "../utils/NewCart";
+
+var obj = {
+  name: "Mirza",
+  mobileNumber: "1234567890",
+  address: "New Town Villa",
+  city: "Ernakulam",
+  pincode: "123456",
+  country: "India",
+  cartId: "ae125a2c-53d9-498f-b88b-987eb955da77",
+};
 
 export default function placeOrder() {
   const [cart, setCart] = useState();
@@ -31,7 +42,12 @@ export default function placeOrder() {
         <div className="w-5/6">
           <div className="px-6 py-5 border-solid border-2  space-y-2 rounded-lg shadow-md ">
             <h2> Shipping Address </h2>
-            <p> xxx, xxx, xxx, xxx </p>
+            <p>
+              {" "}
+              {obj.name}
+              <br /> {obj.address}, {obj.city}, {obj.country}, {obj.pincode}
+              <br /> {obj.mobileNumber}{" "}
+            </p>
             <Link href="/shipping">
               <a className="text-blue-600">Edit</a>
             </Link>
@@ -90,14 +106,19 @@ export default function placeOrder() {
           <div className="flex justify-between">
             <p>Total</p>
             <p>
-              ${cart?.cartItems.map((item) =>
-                    fetchTotal(item.quantity, item.product.price)
-                  )}
-                  {total}
+              $
+              {cart?.cartItems.map((item) =>
+                fetchTotal(item.quantity, item.product.price)
+              )}
+              {total}
             </p>
           </div>
-          <Button className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600">
+          <Button
+            className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
+            onClick={() => placeTheOrder(obj)}
+          >
             {" "}
+            {/* Place Order  */}
             <Link href={"/ordersuccess"}>Place Order</Link>{" "}
           </Button>
         </div>

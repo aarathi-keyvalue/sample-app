@@ -8,7 +8,6 @@ import { AddToCart } from "../../utils/NewCart";
 import { useRouter } from "next/router";
 
 export default function ProductItem({ product }) {
-  
   const { t } = useTranslation();
 
   return (

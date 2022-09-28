@@ -5,8 +5,6 @@ import Image from "next/image";
 import Layout from "../../src/components/Layout";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-// import { gql, useMutation } from "@apollo/client";
-import client from "../../apollo-client";
 import { DeleteCart } from "../../utils/NewCart";
 import { getCart } from "../../utils/NewCart";
 
@@ -18,8 +16,8 @@ export default function CartScreen() {
 
   let total = 0;
 
-  function fetchTotal(qnty, pr) {
-    total = total + qnty * pr;
+  function fetchTotal(quantity, price) {
+    total = total + quantity * price;
   }
 
   function fetchCart() {
