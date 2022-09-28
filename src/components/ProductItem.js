@@ -1,11 +1,8 @@
 import Link from "next/link";
 import React from "react";
-import { useContext } from "react";
-import { Store } from "utils/Store";
 import { Button } from "./button";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { AddToCart } from "../../utils/NewCart";
-import { useRouter } from "next/router";
 
 export default function ProductItem({ product }) {
   const { t } = useTranslation();
@@ -40,7 +37,3 @@ export default function ProductItem({ product }) {
     </div>
   );
 }
-
-// export async function addToCart(pid) {
-//   setCookie("cartId", await AddToCart(getCookie("cartId"), pid));
-// }

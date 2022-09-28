@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <StyledThemeProvider>
       <RecoilRoot>
-          <Component {...pageProps} />
+        <Component {...pageProps} />
       </RecoilRoot>
     </StyledThemeProvider>
   );

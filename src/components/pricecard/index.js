@@ -1,8 +1,5 @@
-import { Router } from "@i18n";
-import { useRouter } from "next/router";
-import React, { useContext } from "react";
+import React from "react";
 import { Button } from "..";
-import { Store } from "../../../utils/Store";
 import { AddToCart } from "../../../utils/NewCart";
 
 export default function PriceCard({ product }) {

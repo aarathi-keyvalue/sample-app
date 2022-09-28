@@ -1,5 +1,4 @@
-import { useRouter } from "next/router";
-import { gql, ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+import { gql } from "@apollo/client";
 import React from "react";
 import Layout from "../../src/components/Layout";
 import PriceCard from "../../src/components/pricecard";
