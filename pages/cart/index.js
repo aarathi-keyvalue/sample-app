@@ -5,8 +5,6 @@ import Image from "next/image";
 import Layout from "../../src/components/Layout";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-// import { gql, useMutation } from "@apollo/client";
-import client from "../../apollo-client";
 import { DeleteCart } from "../../utils/NewCart";
 import { getCart } from "../../utils/NewCart";
 
@@ -15,6 +13,12 @@ export default function CartScreen() {
   useEffect(() => {
     fetchCart();
   }, []);
+
+  let total = 0;
+
+  function fetchTotal(quantity, price) {
+    total = total + quantity * price;
+  }
 
   function fetchCart() {
     getCart().then((data) => {
@@ -93,12 +97,11 @@ export default function CartScreen() {
             <ul>
               <li>
                 <div className="pb-3 text-xl">
-                  Subtotal (
-                  {cart?.cartItems.reduce((a, c) => a + c.quantity, 0)}) : $
-                  {cart?.cartItems.reduce(
-                    (a, c) => a + c.quantity * c.price,
-                    0
+                  Total : $
+                  {cart?.cartItems.map((item) =>
+                    fetchTotal(item.quantity, item.product.price)
                   )}
+                  {total}
                 </div>
               </li>
               <li>
