@@ -11,7 +11,6 @@ export default function SliderComponent() {
   return (
     <>
       <Swiper
-        style={{ "--swiper-navigation-size": "40px" }}
         spaceBetween={30}
         centeredSlides={true}
         autoplay={{

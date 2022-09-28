@@ -35,18 +35,6 @@ export default function Login() {
           </Link>{" "}
         </div>
       </form>
-      {/* <div className='grid justify-items-center py-11'>
-        <div className='items-start bg-gray-700 w-1/3'> <h1> Login </h1> </div>
-        <div className='flex flex-col w-1/3 my-3 mx-0.5'>
-            <label>Email</label>
-            <input className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"></input>
-        </div>
-        <div className='flex flex-col w-1/3 my-3'>
-            <label>Password</label>
-            <input className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password"></input>
-        </div>
-        <Button className='bg-yellow-400 hover:bg-yellow-600'> Login </Button>
-    </div> */}
     </Layout>
   );
 }

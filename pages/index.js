@@ -3,7 +3,7 @@ import Layout from "../src/components/Layout";
 import ProductItem from "../src/components/ProductItem";
 import { Container } from "@components";
 import SliderComponent from "../src/components/SliderComponent";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
 

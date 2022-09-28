@@ -1,7 +1,6 @@
-import { setCookie, getCookie } from "cookies-next";
+import { setCookie } from "cookies-next";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
-import { CartScreen } from "../pages/cart";
 
 setCookie("cart", { cartItems: [], id: String });
 
@@ -95,26 +94,8 @@ export async function placeTheOrder(obj) {
       },
     },
   });
-  console.log("helloooiiiiii", result.data.createOrderWithCascade.id);
   localStorage.setItem("orderId", result.data.createOrderWithCascade.id);
-  // return result.data.addToCart.id;
 }
-
-// export async function AddToCart(pId) {
-//   const result = await client.mutate({
-//     mutation: ADD_TO_CART,
-//     variables: {
-//       input: {
-//         id: id,
-//         cartItem: {
-//           productId: pId,
-//           quantity: 1,
-//         },
-//       },
-//     },
-//   });
-//   return result.data.addToCart.id;
-// }
 
 export async function AddToCart(pId) {
   let id = localStorage.getItem("cartId");

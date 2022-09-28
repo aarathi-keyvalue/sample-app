@@ -1,13 +1,9 @@
 import Link from "next/link";
 import Head from "next/head";
 import React from "react";
-import { useContext, useEffect, useState } from "react";
-import { Store } from "utils/Store";
 import Image from "next/image";
 import { useTranslation, Trans, I18nextProvider } from "react-i18next";
 import { Footer } from "./footer";
-import { Router } from "@i18n";
-import { useRouter } from "next/router";
 
 export default function Layout({ title, children }) {
   const { i18n } = useTranslation();
@@ -38,10 +34,7 @@ export default function Layout({ title, children }) {
                 <a className="text-lg font-bold">cartique</a>
               </Link>
               <div className="flex">
-                {/* <Link href={`/cart/${cartId}`} as={`/cart/[id]`}> */}
-                {/* <Link href="/cart/[id]" as={`/cart/${cartId}`}> */}
                 <Link href={"/cart"}>
-                  {/* <div className="p-2" onClick={()=>router.push(`/cart/${cartId}`)} role="presentation"> */}
                   <a className="p-2">
                     Cart
                     {/* {cartItemsCount > 0 && (
@@ -49,7 +42,6 @@ export default function Layout({ title, children }) {
                         {cartItemsCount}
                       </span>
                     )} */}
-                    {/* </div> */}
                   </a>
                 </Link>
                 <Link href="/login">

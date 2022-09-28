@@ -7,16 +7,6 @@ import { getCart } from "../utils/NewCart";
 import { placeTheOrder } from "../utils/NewCart";
 import { useRouter } from "next/router";
 
-var obj = {
-  name: "Mirza",
-  mobileNumber: "1234567890",
-  address: "New Town Villa",
-  city: "Ernakulam",
-  pincode: "123456",
-  country: "India",
-  cartId: "ae125a2c-53d9-498f-b88b-987eb955da77",
-};
-
 export default function placeOrder() {
   const router = useRouter();
   const customer = router.query;
@@ -40,7 +30,6 @@ export default function placeOrder() {
 
   return (
     <Layout title="Place Order">
-      {/* <form className='max-auto max-w-screen-md'> */}
       <h1 className="mb-4 text-xl"> Place Order </h1>
       <div className="flex justify-between space-x-10">
         <div className="w-5/6">
@@ -122,18 +111,14 @@ export default function placeOrder() {
             className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
             onClick={() => {
               placeTheOrder(customer);
-              // localStorage.removeItem('cartId');
+              localStorage.removeItem("cartId");
             }}
           >
             {" "}
-            {/* Place Order  */}
             <Link href={"/ordersuccess"}>Place Order</Link>{" "}
           </Button>
         </div>
       </div>
-      {/* <Button className="bg-yellow-400 hover:bg-yellow-600 my-5"> Next </Button> */}
-
-      {/* </form> */}
     </Layout>
   );
 }

@@ -4,7 +4,6 @@ import { XCircleIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import Layout from "../../src/components/Layout";
 import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
 import { DeleteCart } from "../../utils/NewCart";
 import { getCart } from "../../utils/NewCart";
 
@@ -119,5 +118,3 @@ export default function CartScreen() {
     </Layout>
   );
 }
-
-// export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
