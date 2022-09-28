@@ -1,70 +1,31 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useContext } from "react";
 import { XCircleIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import Layout from "../../src/components/Layout";
 import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
-// import { gql, useMutation } from "@apollo/client";
-import client from "../../apollo-client";
-import { gql } from "@apollo/client";
 import { DeleteCart } from "../../utils/NewCart";
-import { get } from "https";
-import { getCookie } from "cookies-next";
-import { useAppContext } from "../../src/context/state";
-
-const GET_CART_QUERY = gql`
-  query Cart($id: String!) {
-    getCart(id: $id) {
-      id
-      cartItems {
-        id
-        product {
-          id
-          name
-          price
-          image_url
-        }
-        quantity
-      }
-      isOrdered
-    }
-  }
-`;
+import { getCart } from "../../utils/NewCart";
 
 export default function CartScreen() {
   const [cart, setCart] = useState();
   useEffect(() => {
+    fetchCart();
+  }, []);
+
+  let total = 0;
+
+  function fetchTotal(quantity, price) {
+    total = total + quantity * price;
+  }
+
+  function fetchCart() {
     getCart().then((data) => {
-      console.log("data", data);
-      console.log("cart", cart);
-      if (data !== cart) setCart(data);
+      setCart(data);
     });
-  }, [cart]);
-
-  console.log("Asdsfvd", cart?.id);
-
+  }
   const router = useRouter();
-  const refreshData = () => {
-    console.log("cart", router.asPath);
-    router.replace(router.asPath);
-  };
 
-  // const { state, dispatch } = useContext(Store);
-  // const {
-  //   cart: { cartItems },
-  // } = state;
-
-  // const updateCartHandler = (item, qty) => {
-  //   const quantity = Number(qty);
-  //   dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } });
-  // };
-
-  // const removeItemHandler = (item) => {
-  //   dispatch({ type: "CART_REMOVE_ITEM", payload: item });
-  // };
-  // console.log(getCookie("cartId"));
   return (
     <Layout title="Shopping Cart">
       <h1 className="mb-4 text-xl">Shopping Cart</h1>
@@ -120,9 +81,7 @@ export default function CartScreen() {
                     <td className="p-5 text-center">
                       <button
                         onClick={() => {
-                          DeleteCart(item.id);
-                          // refreshData();
-                          console.log("hello item", item);
+                          DeleteCart(item.id).then(fetchCart);
                         }}
                       >
                         <XCircleIcon className="h-5 w-5"></XCircleIcon>
@@ -137,12 +96,11 @@ export default function CartScreen() {
             <ul>
               <li>
                 <div className="pb-3 text-xl">
-                  Subtotal (
-                  {cart?.cartItems.reduce((a, c) => a + c.quantity, 0)}) : $
-                  {cart?.cartItems.reduce(
-                    (a, c) => a + c.quantity * c.price,
-                    0
+                  Total : $
+                  {cart?.cartItems.map((item) =>
+                    fetchTotal(item.quantity, item.product.price)
                   )}
+                  {total}
                 </div>
               </li>
               <li>
@@ -160,17 +118,3 @@ export default function CartScreen() {
     </Layout>
   );
 }
-
-export async function getCart() {
-  const id = localStorage.getItem("cartId");
-  console.log("in server side id", id);
-  const { data } = await client.query({
-    query: GET_CART_QUERY,
-    variables: { id: id },
-    fetchPolicy: "no-cache",
-  });
-  console.log("first data", data);
-  return data.getCart;
-}
-
-// export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
