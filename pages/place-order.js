@@ -6,8 +6,10 @@ import React, { useEffect, useState } from "react";
 import { getCart } from "../utils/NewCart";
 import { placeTheOrder } from "../utils/NewCart";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 export default function placeOrder() {
+  const { t } = useTranslation();
   const router = useRouter();
   const customer = router.query;
   console.log("In place-order", customer);
@@ -34,7 +36,7 @@ export default function placeOrder() {
       <div className="flex justify-between space-x-10">
         <div className="w-5/6">
           <div className="px-6 py-5 border-solid border-2  space-y-2 rounded-lg shadow-md ">
-            <h2> Shipping Address </h2>
+            <h2> {t("shipping")} </h2>
             <p>
               {" "}
               {customer.name}
@@ -43,25 +45,25 @@ export default function placeOrder() {
               <br /> {customer.mobileNumber}{" "}
             </p>
             <Link href="/shipping">
-              <a className="text-blue-600">Edit</a>
+              <a className="text-blue-600">{t("edit")}</a>
             </Link>
           </div>
           <div className="px-6 py-5 border-solid border-2  space-y-2 rounded-lg shadow-md my-5">
-            <h2> Payment Method </h2>
+            <h2> {t("payment")} </h2>
             <p> Cash On Delivery </p>
             <Link href="/payment">
-              <a className="text-blue-600">Edit</a>
+              <a className="text-blue-600">{t("edit")}</a>
             </Link>
           </div>
           <div className="px-6 py-5 border-solid border-2  space-y-2 rounded-lg shadow-md my-5">
-            <h2> Order Items </h2>
+            <h2> {t("orderitems")} </h2>
             <table className="min-w-full">
               <thead className="border-b">
                 <tr>
-                  <th className="px-5 text-left">Item</th>
-                  <th className="p-5 text-center">Quantity</th>
-                  <th className="p-5 text-center">Unit Price</th>
-                  <th className="p-5 text-center">Subtotal</th>
+                  <th className="px-5 text-left">{t("item")}</th>
+                  <th className="p-5 text-center">{t("quantity")}</th>
+                  <th className="p-5 text-center">{t("unitprice")}</th>
+                  <th className="p-5 text-center">{t("subtotal")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -91,14 +93,14 @@ export default function placeOrder() {
               </tbody>
             </table>
             <Link href="/cart">
-              <a className="text-blue-600">Edit</a>
+              <a className="text-blue-600">{t("edit")}</a>
             </Link>
           </div>
         </div>
         <div className="flex flex-col justify-between px-6 py-5 border-solid border-2 space-y-2 rounded-lg shadow-md h-1/4 w-1/6">
-          <h1>Order Summary</h1>
+          <h1>{t("summary")}</h1>
           <div className="flex justify-between">
-            <p>Total</p>
+            <p>{t("total")}</p>
             <p>
               $
               {cart?.cartItems.map((item) =>
@@ -115,7 +117,7 @@ export default function placeOrder() {
             }}
           >
             {" "}
-            <Link href={"/ordersuccess"}>Place Order</Link>{" "}
+            <Link href={"/ordersuccess"}>{t("placeorder")}</Link>{" "}
           </Button>
         </div>
       </div>

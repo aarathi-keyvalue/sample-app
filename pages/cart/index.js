@@ -4,8 +4,10 @@ import Layout from "../../src/components/Layout";
 import { useRouter } from "next/router";
 import CartItem from "../../src/components/CartItem";
 import { getCart } from "../../utils/NewCart";
+import { useTranslation } from "react-i18next";
 
 export default function CartScreen() {
+  const { t } = useTranslation();
   const [cart, setCart] = useState();
   useEffect(() => {
     fetchCart();
@@ -37,10 +39,10 @@ export default function CartScreen() {
             <table className="min-w-full">
               <thead className="border-b">
                 <tr>
-                  <th className="px-5 text-left">Item</th>
-                  <th className="p-5 text-right">Quantity</th>
-                  <th className="p-5 text-right">Price</th>
-                  <th className="p-5">Action</th>
+                  <th className="px-5 text-left"> {t("item")}</th>
+                  <th className="p-5 text-right"> {t("quantity")}</th>
+                  <th className="p-5 text-right"> {t("price")}</th>
+                  <th className="p-5"> {t("action")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -54,7 +56,7 @@ export default function CartScreen() {
             <ul>
               <li>
                 <div className="pb-3 text-xl">
-                  Total : $
+                {t("total")} : $
                   {cart?.cartItems.map((item) =>
                     fetchTotal(item.quantity, item.product.price)
                   )}
@@ -66,7 +68,7 @@ export default function CartScreen() {
                   onClick={() => router.push("/shipping")}
                   className="rounded bg-yellow-300 py-2 px-4 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600 w-full"
                 >
-                  Checkout
+                   {t("checkout")}
                 </button>
               </li>
             </ul>
