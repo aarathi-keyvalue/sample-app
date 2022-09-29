@@ -1,10 +1,8 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { XCircleIcon } from "@heroicons/react/outline";
-import Image from "next/image";
 import Layout from "../../src/components/Layout";
 import { useRouter } from "next/router";
-import { DeleteCart } from "../../utils/NewCart";
+import CartItem from "../../src/components/CartItem";
 import { getCart } from "../../utils/NewCart";
 
 export default function CartScreen() {
@@ -47,47 +45,7 @@ export default function CartScreen() {
               </thead>
               <tbody>
                 {cart?.cartItems.map((item) => (
-                  <tr key={item.product.id} className="border-b">
-                    <td>
-                      <Link href={`/product/${item.product.id}`}>
-                        <a className="flex items-center">
-                          <Image
-                            src={item.product.image_url}
-                            alt={item.product.name}
-                            width={50}
-                            height={50}
-                          ></Image>
-                          &nbsp;
-                          {item.product.name}
-                        </a>
-                      </Link>
-                    </td>
-                    <td className="p-5 text-right">
-                      {item.quantity}
-                      {/* <select
-                        value={item.quantity}
-                        onChange={(e) =>
-                          updateCartHandler(it055cba06-f917-44b2-954d-c3ab3b9dd2fb
-                      >
-                        {[...Array(item.countInStock).keys()].map((x) => (
-                          <option key={x + 1} value={x + 1}>
-                            {x + 1}
-                          </option>
-                        ))}
-                      </select> */}
-                    </td>
-
-                    <td className="p-5 text-right">${item.product.price}</td>
-                    <td className="p-5 text-center">
-                      <button
-                        onClick={() => {
-                          DeleteCart(item.id).then(fetchCart);
-                        }}
-                      >
-                        <XCircleIcon className="h-5 w-5"></XCircleIcon>
-                      </button>
-                    </td>
-                  </tr>
+                  <CartItem item={item} key={item.product.id}></CartItem>
                 ))}
               </tbody>
             </table>
