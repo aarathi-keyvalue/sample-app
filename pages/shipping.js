@@ -2,8 +2,10 @@ import Layout from "../src/components/Layout";
 import { Button } from "../src/components";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function shipping() {
+  const { t } = useTranslation();
   const [state, setState] = useState({
     name: "",
     mobileNumber: "",
@@ -19,16 +21,15 @@ export default function shipping() {
       [key]: value,
     });
   };
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
 
   return (
     <Layout title="Shipping">
-      <form className="max-auto max-w-screen-md">
-        <h1 className="mb-4 text-xl"> Shipping Address </h1>
+      <form className="py-12 max-auto max-w-screen-md">
+        <div>
+          <h1 className="mb-4 text-xl"> {t("shipping")} </h1>
+        </div>
         <div className="mb-4 flex flex-col">
-          <label htmlFor="name"> Full Name </label>
+          <label htmlFor="name"> {t("fullname")} </label>
           <input
             className=" appearance-none border rounded py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             id="name"
@@ -38,7 +39,7 @@ export default function shipping() {
           ></input>
         </div>
         <div className="mb-4 flex flex-col">
-          <label htmlFor="address">Address</label>
+          <label htmlFor="address">{t("address")}</label>
           <input
             className=" appearance-none border rounded py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             id="address"
@@ -48,7 +49,7 @@ export default function shipping() {
           ></input>
         </div>
         <div className="mb-4 flex flex-col">
-          <label htmlFor="city">City</label>
+          <label htmlFor="city">{t("city")}</label>
           <input
             className=" appearance-none border rounded py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             id="city"
@@ -58,7 +59,7 @@ export default function shipping() {
           ></input>
         </div>
         <div className="mb-4 flex flex-col">
-          <label htmlFor="postcode">Postal Code</label>
+          <label htmlFor="postcode">{t("postcode")}</label>
           <input
             className=" appearance-none border rounded py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             id="postcode"
@@ -68,7 +69,7 @@ export default function shipping() {
           ></input>
         </div>
         <div className="mb-4 flex flex-col">
-          <label htmlFor="country">Country</label>
+          <label htmlFor="country">{t("country")}</label>
           <input
             className=" appearance-none border rounded py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             id="country"
@@ -78,7 +79,7 @@ export default function shipping() {
           ></input>
         </div>
         <div className="mb-4 flex flex-col">
-          <label htmlFor="mobileno"> Mobile Number </label>
+          <label htmlFor="mobileno"> {t("mobno")} </label>
           <input
             className=" appearance-none border rounded py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             id="mobileno"
@@ -96,7 +97,7 @@ export default function shipping() {
               query: state,
             }}
           >
-            Next
+            {t("next")}
           </Link>
         </Button>
       </form>

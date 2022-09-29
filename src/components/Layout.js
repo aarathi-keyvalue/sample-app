@@ -6,7 +6,7 @@ import { useTranslation, Trans, I18nextProvider } from "react-i18next";
 import { Footer } from "./footer";
 
 export default function Layout({ title, children }) {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const toggleLang = () => {
     switch (i18n.language) {
       case "en":
@@ -36,7 +36,7 @@ export default function Layout({ title, children }) {
               <div className="flex">
                 <Link href={"/cart"}>
                   <a className="p-2">
-                    Cart
+                    {t("cart")}
                     {/* {cartItemsCount > 0 && (
                       <span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
                         {cartItemsCount}
@@ -45,7 +45,7 @@ export default function Layout({ title, children }) {
                   </a>
                 </Link>
                 <Link href="/login">
-                  <a className="p-2">Login</a>
+                  <a className="p-2">{t("login")}</a>
                 </Link>
                 <button className="" onClick={toggleLang}>
                   <Image

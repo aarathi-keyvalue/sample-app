@@ -6,6 +6,7 @@ import ReviewCard from "../../src/components/review";
 import DetailCard from "../../src/components/DetailCard";
 import Link from "next/link";
 import client from "../../apollo-client";
+import { useTranslation } from "react-i18next";
 
 const PRODUCT_QUERY = gql`
   query product($product_id: String!) {
@@ -23,10 +24,11 @@ const PRODUCT_QUERY = gql`
 `;
 
 export default function ProductList({ product }) {
+  const { t } = useTranslation();
   if (!product) {
     return (
       <Layout>
-        <div> Product Not Found </div>
+        <div> {t("noproduct")} </div>
       </Layout>
     );
   }
@@ -45,8 +47,8 @@ export default function ProductList({ product }) {
             <PriceCard product={product} />
           </div>
         </div>
-        <h1 className="text-lg">Customer Reviews</h1>
-        <h5 className="text-sm">No review found </h5>
+        <h1 className="text-lg">{t("review")}</h1>
+        <h5 className="text-sm">{t("noreview")}</h5>
         <ReviewCard />
       </div>
     </Layout>
