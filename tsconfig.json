@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -15,21 +19,54 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@components": ["src/components"],
-      "@public/*": ["public/*"],
-      "@public": ["public"],
-      "@definitions/*": ["src/definitions/*"],
-      "@definitions": ["src/definitions"],
-      "@interfaces/*": ["src/interfaces/*"],
-      "@interfaces": ["src/interfaces"],
-      "@styles/*": ["src/styles/*"],
-      "@styles": ["src/styles"],
-      "@recoil/*": ["src/recoil/*"],
-      "@recoil": ["src/recoil"],
-      "@i18n": ["./i18n"]
-    }
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@components": [
+        "src/components"
+      ],
+      "@public/*": [
+        "public/*"
+      ],
+      "@public": [
+        "public"
+      ],
+      "@definitions/*": [
+        "src/definitions/*"
+      ],
+      "@definitions": [
+        "src/definitions"
+      ],
+      "@interfaces/*": [
+        "src/interfaces/*"
+      ],
+      "@interfaces": [
+        "src/interfaces"
+      ],
+      "@styles/*": [
+        "src/styles/*"
+      ],
+      "@styles": [
+        "src/styles"
+      ],
+      "@recoil/*": [
+        "src/recoil/*"
+      ],
+      "@recoil": [
+        "src/recoil"
+      ],
+      "@i18n": [
+        "./i18n"
+      ]
+    },
+    "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+, "src/components/pricecard/index.js", "pages/index.js", "src/components/index.js", "src/components/container/index.js"  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
