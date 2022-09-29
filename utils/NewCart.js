@@ -100,6 +100,7 @@ export async function placeTheOrder(obj) {
 export async function AddToCart(pId) {
   let id = localStorage.getItem("cartId");
   id = id ? id : "";
+  console.log(process.env);
   const result = await client.mutate({
     mutation: ADD_TO_CART,
     variables: {
