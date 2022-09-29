@@ -1,13 +1,13 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { XCircleIcon } from "@heroicons/react/outline";
-import Image from "next/image";
 import Layout from "../../src/components/Layout";
 import { useRouter } from "next/router";
-import { DeleteCart } from "../../utils/NewCart";
+import CartItem from "../../src/components/CartItem";
 import { getCart } from "../../utils/NewCart";
+import { useTranslation } from "react-i18next";
 
 export default function CartScreen() {
+  const { t } = useTranslation();
   const [cart, setCart] = useState();
   useEffect(() => {
     fetchCart();
@@ -39,55 +39,15 @@ export default function CartScreen() {
             <table className="min-w-full">
               <thead className="border-b">
                 <tr>
-                  <th className="px-5 text-left">Item</th>
-                  <th className="p-5 text-right">Quantity</th>
-                  <th className="p-5 text-right">Price</th>
-                  <th className="p-5">Action</th>
+                  <th className="px-5 text-left"> {t("item")}</th>
+                  <th className="p-5 text-right"> {t("quantity")}</th>
+                  <th className="p-5 text-right"> {t("price")}</th>
+                  <th className="p-5"> {t("action")}</th>
                 </tr>
               </thead>
               <tbody>
                 {cart?.cartItems.map((item) => (
-                  <tr key={item.product.id} className="border-b">
-                    <td>
-                      <Link href={`/product/${item.product.id}`}>
-                        <a className="flex items-center">
-                          <Image
-                            src={item.product.image_url}
-                            alt={item.product.name}
-                            width={50}
-                            height={50}
-                          ></Image>
-                          &nbsp;
-                          {item.product.name}
-                        </a>
-                      </Link>
-                    </td>
-                    <td className="p-5 text-right">
-                      {item.quantity}
-                      {/* <select
-                        value={item.quantity}
-                        onChange={(e) =>
-                          updateCartHandler(it055cba06-f917-44b2-954d-c3ab3b9dd2fb
-                      >
-                        {[...Array(item.countInStock).keys()].map((x) => (
-                          <option key={x + 1} value={x + 1}>
-                            {x + 1}
-                          </option>
-                        ))}
-                      </select> */}
-                    </td>
-
-                    <td className="p-5 text-right">${item.product.price}</td>
-                    <td className="p-5 text-center">
-                      <button
-                        onClick={() => {
-                          DeleteCart(item.id).then(fetchCart);
-                        }}
-                      >
-                        <XCircleIcon className="h-5 w-5"></XCircleIcon>
-                      </button>
-                    </td>
-                  </tr>
+                  <CartItem item={item} key={item.product.id}></CartItem>
                 ))}
               </tbody>
             </table>
@@ -96,7 +56,7 @@ export default function CartScreen() {
             <ul>
               <li>
                 <div className="pb-3 text-xl">
-                  Total : $
+                {t("total")} : $
                   {cart?.cartItems.map((item) =>
                     fetchTotal(item.quantity, item.product.price)
                   )}
@@ -108,7 +68,7 @@ export default function CartScreen() {
                   onClick={() => router.push("/shipping")}
                   className="rounded bg-yellow-300 py-2 px-4 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600 w-full"
                 >
-                  Checkout
+                   {t("checkout")}
                 </button>
               </li>
             </ul>
