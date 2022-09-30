@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "export": "next export",
     "start": "next start -p 3005",
     "test": "jest -c test/jest.config.js"
   },
