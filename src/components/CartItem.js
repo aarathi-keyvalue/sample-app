@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { DeleteCart } from "../../utils/NewCart";
 import Link from "next/link";
@@ -8,6 +9,7 @@ import { UpdateQuantity } from "../../utils/NewCart";
 
 export default function CartItem({ item, fetchCart }) {
   const [quantity, setQuantity] = useState(item.quantity);
+
   return (
     <tr key={item.product.id} className="border-b">
       <td>
@@ -24,6 +26,7 @@ export default function CartItem({ item, fetchCart }) {
           </a>
         </Link>
       </td>
+
       <td className="p-5 items-center">
         <div className="flex rounded items-center justify-center">
           <Button
@@ -51,6 +54,7 @@ export default function CartItem({ item, fetchCart }) {
             +
           </Button>
         </div>
+
         {/* <select
           value={item.quantity}
           onChange={(e) =>

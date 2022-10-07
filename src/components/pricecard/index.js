@@ -1,4 +1,5 @@
 import { Button } from "..";
+
 import {
   AddToCart,
   UpdateQuantity,
@@ -10,6 +11,7 @@ import { useTranslation } from "react-i18next";
 
 export default function PriceCard({ product }) {
   const { t } = useTranslation();
+
   let cart;
   const [cartObject, setCartObject] = useState();
   const [quantity, setQuantity] = useState();
@@ -81,6 +83,7 @@ export default function PriceCard({ product }) {
           </div>
         )}
       </div>
+
     </div>
   );
 }

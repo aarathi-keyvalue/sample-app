@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import React, { useEffect, useState } from "react";
 import { checkProduct, getCart } from "../../utils/NewCart";
 
+
 const PRODUCT_QUERY = gql`
   query product($product_id: String!) {
     product(id: $product_id) {
@@ -26,7 +27,6 @@ const PRODUCT_QUERY = gql`
 
 export default function ProductList({ product }) {
   const { t } = useTranslation();
-
   if (!product) {
     return (
       <Layout>
