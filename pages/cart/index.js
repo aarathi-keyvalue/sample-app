@@ -40,14 +40,18 @@ export default function CartScreen() {
               <thead className="border-b">
                 <tr>
                   <th className="px-5 text-left"> {t("item")}</th>
-                  <th className="p-5 text-right"> {t("quantity")}</th>
+                  <th className="p-5 text-center"> {t("quantity")}</th>
                   <th className="p-5 text-right"> {t("price")}</th>
                   <th className="p-5"> {t("action")}</th>
                 </tr>
               </thead>
               <tbody>
                 {cart?.cartItems.map((item) => (
-                  <CartItem item={item} fetchCart={fetchCart} key={item.product.id}></CartItem>
+                  <CartItem
+                    item={item}
+                    fetchCart={fetchCart}
+                    key={item.product.id}
+                  ></CartItem>
                 ))}
               </tbody>
             </table>
@@ -56,7 +60,7 @@ export default function CartScreen() {
             <ul>
               <li>
                 <div className="pb-3 text-xl">
-                {t("total")} : $
+                  {t("total")} : $
                   {cart?.cartItems.map((item) =>
                     fetchTotal(item.quantity, item.product.price)
                   )}
@@ -68,7 +72,7 @@ export default function CartScreen() {
                   onClick={() => router.push("/shipping")}
                   className="rounded bg-yellow-300 py-2 px-4 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600 w-full"
                 >
-                   {t("checkout")}
+                  {t("checkout")}
                 </button>
               </li>
             </ul>

@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DeleteCart } from "../../utils/NewCart";
 import Link from "next/link";
 import { XCircleIcon } from "@heroicons/react/outline";
-import { getCart } from "../../utils/NewCart";
-
+import { Button } from "./button";
 import Image from "next/image";
+import { UpdateQuantity } from "../../utils/NewCart";
 
 export default function CartItem({ item, fetchCart }) {
-  useEffect(() => {
-    fetchCart();
-  }, []);
+  const [quantity, setQuantity] = useState(item.quantity);
   return (
     <tr key={item.product.id} className="border-b">
       <td>
@@ -26,8 +24,33 @@ export default function CartItem({ item, fetchCart }) {
           </a>
         </Link>
       </td>
-      <td className="p-5 text-right">
-        {item.quantity}
+      <td className="p-5 items-center">
+        <div className="flex rounded items-center justify-center">
+          <Button
+            className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
+            onClick={() => {
+              UpdateQuantity(item.id, quantity - 1);
+              if (quantity == 1) {
+                DeleteCart(item.id).then(fetchCart);
+              }
+              setQuantity(quantity - 1);
+            }}
+            type="button"
+          >
+            -
+          </Button>
+          <div className="flex items-center mx-1">{quantity}</div>
+          <Button
+            className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
+            onClick={() => {
+              UpdateQuantity(item.id, quantity + 1);
+              setQuantity(quantity + 1);
+            }}
+            type="button"
+          >
+            +
+          </Button>
+        </div>
         {/* <select
           value={item.quantity}
           onChange={(e) =>

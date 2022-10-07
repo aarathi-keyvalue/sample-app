@@ -65,7 +65,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/components/pricecard/index.js", "pages/index.js", "src/components/index.js", "src/components/container/index.js"  ],
+, "src/components/pricecard/index.js", "pages/index.jsx", "src/components/index.js", "src/components/container/index.js"  ],
   "exclude": [
     "node_modules"
   ]
