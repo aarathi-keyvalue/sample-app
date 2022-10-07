@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-import React from "react";
 import Layout from "../../src/components/Layout";
 import PriceCard from "../../src/components/pricecard";
 import ReviewCard from "../../src/components/review";
@@ -7,6 +6,9 @@ import DetailCard from "../../src/components/DetailCard";
 import Link from "next/link";
 import client from "../../apollo-client";
 import { useTranslation } from "react-i18next";
+import React, { useEffect, useState } from "react";
+import { checkProduct, getCart } from "../../utils/NewCart";
+
 
 const PRODUCT_QUERY = gql`
   query product($product_id: String!) {

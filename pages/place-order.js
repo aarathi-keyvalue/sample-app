@@ -12,7 +12,6 @@ export default function placeOrder() {
   const { t } = useTranslation();
   const router = useRouter();
   const customer = router.query;
-  console.log("In place-order", customer);
   const [cart, setCart] = useState();
   useEffect(() => {
     fetchCart();

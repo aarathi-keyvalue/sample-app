@@ -17,12 +17,15 @@ const DELETE_CART = gql`
 
 const ADD_TO_CART = gql`
   mutation AddToCart($input: AddToCartInput!) {
-    addToCart(addToCart: $input) {
+    addToCart(cartInput: $input) {
       id
       cartItems {
+        id
         product {
+          id
           name
         }
+        quantity
       }
     }
   }
@@ -62,7 +65,25 @@ const GET_CART_QUERY = gql`
         }
         quantity
       }
-      isOrdered
+    }
+  }
+`;
+
+const CHECK_CART = gql`
+  query ProductQuantityInCart($pid: String!, $cid: String!) {
+    productQuantityInCart(productId: $pid, cartId: $cid)
+  }
+`;
+
+const UPDATE_QUANTITY = gql`
+  mutation UpdateQuantity($input: UpdateQuantityInput!) {
+    updateQuantity(updateQuantity: $input) {
+      id
+      quantity
+      product {
+        name
+        id
+      }
     }
   }
 `;
@@ -97,10 +118,9 @@ export async function placeTheOrder(obj) {
   localStorage.setItem("orderId", result.data.createOrderWithCascade.id);
 }
 
-export async function AddToCart(pId) {
+export async function AddToCart(pId, qty = 1) {
   let id = localStorage.getItem("cartId");
   id = id ? id : "";
-  console.log(process.env);
   const result = await client.mutate({
     mutation: ADD_TO_CART,
     variables: {
@@ -108,13 +128,13 @@ export async function AddToCart(pId) {
         id: id,
         cartItem: {
           productId: pId,
-          quantity: 1,
+          quantity: qty,
         },
       },
     },
   });
   localStorage.setItem("cartId", result.data.addToCart.id);
-  return result.data.addToCart.id;
+  return result.data.addToCart;
 }
 
 export async function DeleteCart(id) {
@@ -124,6 +144,28 @@ export async function DeleteCart(id) {
       id: id,
     },
   });
+}
 
-  console.log("Cart Item Deleted!!!");
+export async function UpdateQuantity(id, qty) {
+  const result = await client.mutate({
+    mutation: UPDATE_QUANTITY,
+    variables: {
+      input: {
+        cartItemsId: id,
+        quantity: qty,
+      },
+    },
+  });
+}
+
+export async function checkProduct(id) {
+  const { data } = await client.query({
+    query: CHECK_CART,
+    variables: {
+      pid: id,
+      cid: "6026254c-ecdf-453d-8a11-8ea62f617f29",
+    },
+    fetchPolicy: "no-cache",
+  });
+  return data.productQuantityInCart;
 }
