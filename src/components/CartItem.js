@@ -6,16 +6,10 @@ import { getCart } from "../../utils/NewCart";
 
 import Image from "next/image";
 
-export default function CartItem({ item }) {
-  const [cart, setCart] = useState();
+export default function CartItem({ item, fetchCart }) {
   useEffect(() => {
     fetchCart();
   }, []);
-  function fetchCart() {
-    getCart().then((data) => {
-      setCart(data);
-    });
-  }
   return (
     <tr key={item.product.id} className="border-b">
       <td>

@@ -47,7 +47,7 @@ export default function CartScreen() {
               </thead>
               <tbody>
                 {cart?.cartItems.map((item) => (
-                  <CartItem item={item} key={item.product.id}></CartItem>
+                  <CartItem item={item} fetchCart={fetchCart} key={item.product.id}></CartItem>
                 ))}
               </tbody>
             </table>
