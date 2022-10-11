@@ -1,12 +1,12 @@
-import Layout from "../src/components/Layout";
-import { Button } from "../src/components";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import Layout from "../src/components/Layout";
+import { Button } from "../src/components";
 import { getCart } from "../utils/NewCart";
 import { placeTheOrder } from "../utils/NewCart";
-import { useRouter } from "next/router";
-import { useTranslation } from "react-i18next";
 
 export default function placeOrder() {
   const { t } = useTranslation();
@@ -14,14 +14,10 @@ export default function placeOrder() {
   const customer = router.query;
   const [cart, setCart] = useState();
   useEffect(() => {
-    fetchCart();
-  }, []);
-
-  function fetchCart() {
     getCart().then((data) => {
       setCart(data);
     });
-  }
+  }, []);
 
   let total = 0;
 

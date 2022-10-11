@@ -1,8 +1,8 @@
 import React from "react";
+import { RecoilRoot } from "recoil";
 import { AppProps } from "next/app";
 import "tailwindcss/tailwind.css";
 import { StyledThemeProvider } from "@definitions/styled-components";
-import { RecoilRoot } from "recoil";
 import "../src/translations/i18n";
 import "../src/styles/globalStyles";
 

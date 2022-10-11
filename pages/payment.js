@@ -1,6 +1,6 @@
+import Link from "next/link";
 import Layout from "../src/components/Layout";
 import { Button } from "../src/components";
-import Link from "next/link";
 
 export default function payment() {
   return (

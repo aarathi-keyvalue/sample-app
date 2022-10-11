@@ -1,30 +1,45 @@
+import React, { useEffect, useState, useCallback } from "react";
+import debounce from "lodash.debounce";
+import { useTranslation } from "react-i18next";
 import { Button } from "..";
 import {
-  AddToCart,
-  UpdateQuantity,
+  addToCart,
   getCart,
-  DeleteCart,
+  decrementQuantity,
+  incrementQuantity,
+  updateQuantity,
 } from "../../../utils/NewCart";
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 
 export default function PriceCard({ product }) {
   const { t } = useTranslation();
   let cart;
-  const [cartObject, setCartObject] = useState();
+  const [cartItem, setCartItem] = useState();
   const [quantity, setQuantity] = useState();
+
+  const decrementHandler = useCallback(
+    debounce(
+      (cartItem, quantity) => updateQuantity(cartItem.id, quantity - 1),
+      600
+    ),
+    []
+  );
+
+  const incrementHandler = useCallback(
+    debounce(
+      (cartItem, quantity) => updateQuantity(cartItem.id, quantity + 1),
+      600
+    ),
+    []
+  );
 
   useEffect(async () => {
     cart = await getCart();
-    const cartItem = cart?.cartItems?.find(
-      (obj) => obj.product.id === product.id
-    );
-    setCartObject(cartItem);
+    setCartItem(cart?.cartItems?.find((obj) => obj.product.id === product.id));
   }, []);
 
   useEffect(() => {
-    setQuantity(!cartObject ? 0 : cartObject.quantity);
-  }, [cartObject]);
+    setQuantity(!cartItem ? 0 : cartItem.quantity);
+  }, [cartItem]);
 
   const status = "Available";
   return (
@@ -41,12 +56,8 @@ export default function PriceCard({ product }) {
         {quantity == 0 ? (
           <Button
             className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
-            onClick={async () => {
-              const data = await AddToCart(product.id);
-              const cartItem = data?.cartItems?.find(
-                (obj) => obj.product.id === product.id
-              );
-              setCartObject(cartItem);
+            onClick={() => {
+              addToCart(product.id, setCartItem);
             }}
             type="button"
           >
@@ -57,11 +68,8 @@ export default function PriceCard({ product }) {
             <Button
               className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
               onClick={() => {
-                UpdateQuantity(cartObject.id, quantity - 1);
-                if (quantity == 1) {
-                  DeleteCart(cartObject.id);
-                }
-                setQuantity(quantity - 1);
+                decrementHandler(cartItem, quantity);
+                decrementQuantity(cartItem, quantity, setQuantity);
               }}
               type="button"
             >
@@ -71,7 +79,7 @@ export default function PriceCard({ product }) {
             <Button
               className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
               onClick={() => {
-                UpdateQuantity(cartObject.id, quantity + 1);
+                incrementHandler(cartItem, quantity);
                 setQuantity(quantity + 1);
               }}
               type="button"

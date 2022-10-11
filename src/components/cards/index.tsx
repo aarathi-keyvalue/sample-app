@@ -1,5 +1,4 @@
 import React from "react";
-
 import data from "@public/meta.json";
 
 export const Cards: React.FC = () => {

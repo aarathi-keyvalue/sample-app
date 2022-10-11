@@ -1,29 +1,43 @@
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { Button } from "./button";
+import React, { useEffect, useState, useCallback } from "react";
+import debounce from "lodash.debounce";
 import { useTranslation } from "react-i18next";
+import Link from "next/link";
+import { Button } from "./button";
 import {
-  AddToCart,
-  UpdateQuantity,
+  addToCart,
   getCart,
-  DeleteCart,
+  decrementQuantity,
+  incrementQuantity,
+  updateQuantity,
 } from "../../utils/NewCart";
 
 export default function ProductItem({ product, cartObj }) {
   const { t } = useTranslation();
-  let cart;
-  const [cartObject, setCartObject] = useState(cartObj);
+  const [cartItem, setCartItem] = useState(cartObj);
   const [quantity, setQuantity] = useState(cartObj?.quantity);
 
+  const decrementHandler = useCallback(
+    debounce(
+      (cartItem, quantity) => updateQuantity(cartItem.id, quantity - 1),
+      600
+    ),
+    []
+  );
+
+  const incrementHandler = useCallback(
+    debounce(
+      (cartItem, quantity) => updateQuantity(cartItem.id, quantity + 1),
+      600
+    ),
+    []
+  );
   useEffect(() => {
-    setQuantity(!cartObject ? 0 : cartObject.quantity);
-  }, [cartObject]);
+    setQuantity(!cartItem ? 0 : cartItem.quantity);
+  }, [cartItem]);
 
   useEffect(async () => {
-    cart = await getCart();
-    setCartObject(
-      cart?.cartItems?.find((obj) => obj.product.id === product.id)
-    );
+    let cart = await getCart();
+    setCartItem(cart?.cartItems?.find((obj) => obj.product.id === product.id));
   }, []);
 
   return (
@@ -49,11 +63,7 @@ export default function ProductItem({ product, cartObj }) {
           <Button
             className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
             onClick={async () => {
-              const data = await AddToCart(product.id);
-              const cartItem = data?.cartItems?.find(
-                (obj) => obj.product.id === product.id
-              );
-              setCartObject(cartItem);
+              addToCart(product.id, setCartItem);
             }}
             type="button"
           >
@@ -64,11 +74,8 @@ export default function ProductItem({ product, cartObj }) {
             <Button
               className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
               onClick={() => {
-                UpdateQuantity(cartObject.id, quantity - 1);
-                if (quantity == 1) {
-                  DeleteCart(cartObject.id);
-                }
-                setQuantity(quantity - 1);
+                decrementHandler(cartItem, quantity);
+                decrementQuantity(cartItem, quantity, setQuantity);
               }}
               type="button"
             >
@@ -78,7 +85,7 @@ export default function ProductItem({ product, cartObj }) {
             <Button
               className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
               onClick={() => {
-                UpdateQuantity(cartObject.id, quantity + 1);
+                incrementHandler(cartItem, quantity);
                 setQuantity(quantity + 1);
               }}
               type="button"

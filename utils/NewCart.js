@@ -1,6 +1,8 @@
 import { setCookie } from "cookies-next";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
+import { useCallback } from "react";
+import debounce from "lodash.debounce";
 
 setCookie("cart", { cartItems: [], id: String });
 
@@ -118,26 +120,30 @@ export async function placeTheOrder(obj) {
   localStorage.setItem("orderId", result.data.createOrderWithCascade.id);
 }
 
-export async function AddToCart(pId, qty = 1) {
+export async function addToCart(pId, setCartObject) {
   let id = localStorage.getItem("cartId");
   id = id ? id : "";
-  const result = await client.mutate({
+  const cart = await client.mutate({
     mutation: ADD_TO_CART,
     variables: {
       input: {
         id: id,
         cartItem: {
           productId: pId,
-          quantity: qty,
+          quantity: 1,
         },
       },
     },
   });
-  localStorage.setItem("cartId", result.data.addToCart.id);
-  return result.data.addToCart;
+  localStorage.setItem("cartId", cart.data.addToCart.id);
+  const item = cart.data.addToCart?.cartItems?.find(
+    (obj) => obj.product.id === pId
+  );
+  setCartObject(item);
+  return item;
 }
 
-export async function DeleteCart(id) {
+export async function deleteCart(id) {
   const result = await client.mutate({
     mutation: DELETE_CART,
     variables: {
@@ -146,7 +152,7 @@ export async function DeleteCart(id) {
   });
 }
 
-export async function UpdateQuantity(id, qty) {
+export async function updateQuantity(id, qty) {
   const result = await client.mutate({
     mutation: UPDATE_QUANTITY,
     variables: {
@@ -169,3 +175,15 @@ export async function checkProduct(id) {
   });
   return data.productQuantityInCart;
 }
+
+export async function decrementQuantity(item, quantity, setQuantity, setCart) {
+  if (quantity == 1) {
+    deleteCart(item.id).then((data) => {
+      getCart().then((data) => {
+        setCart(data);
+      });
+    });
+  }
+  setQuantity(quantity - 1);
+}
+

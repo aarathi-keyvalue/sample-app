@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../src/components/Layout";
-import ProductItem from "../src/components/ProductItem";
-import { Container } from "@components";
-import SliderComponent from "../src/components/SliderComponent";
 import { useTranslation } from "react-i18next";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
+import { Container } from "@components";
+import Layout from "../src/components/Layout";
+import ProductItem from "../src/components/ProductItem";
+import SliderComponent from "../src/components/SliderComponent";
 import { getCart } from "../utils/NewCart";
 
 const PRODUCTS_QUERY = gql`

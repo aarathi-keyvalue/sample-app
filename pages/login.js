@@ -1,9 +1,9 @@
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
 import { Button } from "../src/components";
 import Layout from "../src/components/Layout";
 
-export default function Login() {
+export default function login() {
   return (
     <Layout title="Login">
       <form className="max-auto max-w-screen-md">

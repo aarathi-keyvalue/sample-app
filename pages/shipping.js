@@ -1,8 +1,8 @@
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import Link from "next/link";
 import Layout from "../src/components/Layout";
 import { Button } from "../src/components";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 
 export default function shipping() {
   const { t } = useTranslation();

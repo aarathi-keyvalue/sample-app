@@ -1,13 +1,38 @@
-import React, { useState } from "react";
-import { DeleteCart } from "../../utils/NewCart";
+import React, { useState, useCallback, useEffect } from "react";
+import debounce from "lodash.debounce";
 import Link from "next/link";
+import Image from "next/image";
 import { XCircleIcon } from "@heroicons/react/outline";
 import { Button } from "./button";
-import Image from "next/image";
-import { UpdateQuantity } from "../../utils/NewCart";
+import {
+  deleteCart,
+  getCart,
+  incrementQuantity,
+  decrementQuantity,
+  updateQuantity,
+} from "../../utils/NewCart";
 
-export default function CartItem({ item, fetchCart }) {
+export default function CartItem({ item, setCart, updatePrice }) {
   const [quantity, setQuantity] = useState(item.quantity);
+  useEffect(() => {
+    updatePrice(quantity, item.product.price);
+  }, []);
+
+  const decrementHandler = useCallback(
+    debounce(
+      (cartItem, quantity) => updateQuantity(cartItem.id, quantity - 1),
+      600
+    ),
+    []
+  );
+
+  const incrementHandler = useCallback(
+    debounce(
+      (cartItem, quantity) => updateQuantity(cartItem.id, quantity + 1),
+      600
+    ),
+    []
+  );
   return (
     <tr key={item.product.id} className="border-b">
       <td>
@@ -29,11 +54,9 @@ export default function CartItem({ item, fetchCart }) {
           <Button
             className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
             onClick={() => {
-              UpdateQuantity(item.id, quantity - 1);
-              if (quantity == 1) {
-                DeleteCart(item.id).then(fetchCart);
-              }
-              setQuantity(quantity - 1);
+              decrementHandler(item, quantity);
+              decrementQuantity(item, quantity, setQuantity, setCart);
+              updatePrice(-1, item.product.price);
             }}
             type="button"
           >
@@ -43,32 +66,26 @@ export default function CartItem({ item, fetchCart }) {
           <Button
             className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
             onClick={() => {
-              UpdateQuantity(item.id, quantity + 1);
+              incrementHandler(item, quantity);
               setQuantity(quantity + 1);
+              updatePrice(1, item.product.price);
             }}
             type="button"
           >
             +
           </Button>
         </div>
-        {/* <select
-          value={item.quantity}
-          onChange={(e) =>
-            updateCartHandler(it055cba06-f917-44b2-954d-c3ab3b9dd2fb
-        >
-          {[...Array(item.countInStock).keys()].map((x) => (
-            <option key={x + 1} value={x + 1}>
-              {x + 1}
-            </option>
-          ))}
-        </select> */}
       </td>
 
       <td className="p-5 text-right">${item.product.price}</td>
       <td className="p-5 text-center">
         <button
           onClick={() => {
-            DeleteCart(item.id).then(fetchCart);
+            deleteCart(item.id).then((data) => {
+              getCart().then((data) => {
+                setCart(data);
+              });
+            });
           }}
         >
           <XCircleIcon className="h-5 w-5"></XCircleIcon>

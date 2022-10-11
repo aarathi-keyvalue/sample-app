@@ -1,22 +1,27 @@
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import Layout from "../../src/components/Layout";
-import { useRouter } from "next/router";
-import CartItem from "../../src/components/CartItem";
-import { getCart } from "../../utils/NewCart";
 import { useTranslation } from "react-i18next";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { getCart } from "../../utils/NewCart";
+import Layout from "../../src/components/Layout";
+import CartItem from "../../src/components/CartItem";
 
 export default function CartScreen() {
   const { t } = useTranslation();
   const [cart, setCart] = useState();
-  useEffect(() => {
-    fetchCart();
-  }, []);
 
-  let total = 0;
+  useEffect(
+    () =>
+      getCart().then((data) => {
+        setCart(data);
+      }),
+    []
+  );
 
-  function fetchTotal(quantity, price) {
-    total = total + quantity * price;
+  const [price, setPrice] = useState(0);
+
+  function updatePrice(quantity, rate) {
+    setPrice((currPrice) => currPrice + quantity * rate);
   }
 
   function fetchCart() {
@@ -49,8 +54,9 @@ export default function CartScreen() {
                 {cart?.cartItems.map((item) => (
                   <CartItem
                     item={item}
-                    fetchCart={fetchCart}
+                    setCart={setCart}
                     key={item.product.id}
+                    updatePrice={updatePrice}
                   ></CartItem>
                 ))}
               </tbody>
@@ -61,10 +67,10 @@ export default function CartScreen() {
               <li>
                 <div className="pb-3 text-xl">
                   {t("total")} : $
-                  {cart?.cartItems.map((item) =>
+                  {/* {cart?.cartItems.map((item) =>
                     fetchTotal(item.quantity, item.product.price)
-                  )}
-                  {total}
+                  )} */}
+                  {price}
                 </div>
               </li>
               <li>
