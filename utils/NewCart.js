@@ -180,7 +180,9 @@ export async function decrementQuantity(item, quantity, setQuantity, setCart) {
   if (quantity == 1) {
     deleteCart(item.id).then((data) => {
       getCart().then((data) => {
+        if (setCart != null){
         setCart(data);
+        }
       });
     });
   }

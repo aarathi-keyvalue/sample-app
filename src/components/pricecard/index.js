@@ -1,39 +1,15 @@
-import React, { useEffect, useState, useCallback } from "react";
-import debounce from "lodash.debounce";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "..";
-import {
-  addToCart,
-  getCart,
-  decrementQuantity,
-  incrementQuantity,
-  updateQuantity,
-} from "../../../utils/NewCart";
+import { getCart } from "../../../utils/NewCart";
+import AddToCart from "../AddToCart";
 
 export default function PriceCard({ product }) {
   const { t } = useTranslation();
-  let cart;
   const [cartItem, setCartItem] = useState();
   const [quantity, setQuantity] = useState();
 
-  const decrementHandler = useCallback(
-    debounce(
-      (cartItem, quantity) => updateQuantity(cartItem.id, quantity - 1),
-      600
-    ),
-    []
-  );
-
-  const incrementHandler = useCallback(
-    debounce(
-      (cartItem, quantity) => updateQuantity(cartItem.id, quantity + 1),
-      600
-    ),
-    []
-  );
-
   useEffect(async () => {
-    cart = await getCart();
+    let cart = await getCart();
     setCartItem(cart?.cartItems?.find((obj) => obj.product.id === product.id));
   }, []);
 
@@ -53,41 +29,13 @@ export default function PriceCard({ product }) {
           <p>{t("status")}</p>
           <p>{status}</p>
         </div>
-        {quantity == 0 ? (
-          <Button
-            className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
-            onClick={() => {
-              addToCart(product.id, setCartItem);
-            }}
-            type="button"
-          >
-            {t("addtocart")}
-          </Button>
-        ) : (
-          <div className="flex rounded justify-center">
-            <Button
-              className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
-              onClick={() => {
-                decrementHandler(cartItem, quantity);
-                decrementQuantity(cartItem, quantity, setQuantity);
-              }}
-              type="button"
-            >
-              -
-            </Button>
-            <div className="flex items-center mx-1">{quantity}</div>
-            <Button
-              className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
-              onClick={() => {
-                incrementHandler(cartItem, quantity);
-                setQuantity(quantity + 1);
-              }}
-              type="button"
-            >
-              +
-            </Button>
-          </div>
-        )}
+        <AddToCart
+          product={product}
+          quantity={quantity}
+          setQuantity={setQuantity}
+          cartItem={cartItem}
+          setCartItem={setCartItem}
+        ></AddToCart>
       </div>
     </div>
   );
