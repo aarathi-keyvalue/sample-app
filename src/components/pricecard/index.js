@@ -31,10 +31,12 @@ export default function PriceCard({ product }) {
         </div>
         <AddToCart
           product={product}
+          setCart={() => {}}
           quantity={quantity}
           setQuantity={setQuantity}
           cartItem={cartItem}
           setCartItem={setCartItem}
+          setPrice={() => {}}
         ></AddToCart>
       </div>
     </div>

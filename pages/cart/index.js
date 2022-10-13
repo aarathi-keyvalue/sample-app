@@ -56,7 +56,7 @@ export default function CartScreen() {
                     item={item}
                     setCart={setCart}
                     key={item.product.id}
-                    updatePrice={updatePrice}
+                    setPrice={setPrice}
                   ></CartItem>
                 ))}
               </tbody>

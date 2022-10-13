@@ -39,10 +39,12 @@ export default function ProductItem({ product, cartObj }) {
         <p className="my-2">${product.price}</p>
         <AddToCart
           product={product}
+          setCart={() => {}}
           quantity={quantity}
           setQuantity={setQuantity}
           cartItem={cartItem}
           setCartItem={setCartItem}
+          setPrice={() => {}}
         ></AddToCart>
       </div>
     </div>

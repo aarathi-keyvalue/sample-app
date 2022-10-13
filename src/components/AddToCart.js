@@ -5,22 +5,26 @@ import { Button } from "./button";
 import {
   addToCart,
   decrementQuantity,
+  incrementQuantity,
   updateQuantity,
+  deleteCart,
+  getCart,
 } from "../../utils/NewCart";
 
 export default function AddToCart({
-  product = {},
+  product,
+  setCart,
   quantity,
   setQuantity,
   cartItem,
   setCartItem,
+  setPrice,
 }) {
   const { t } = useTranslation();
   const decrementHandler = useCallback(
-    debounce(
-      (cartItem, quantity) => updateQuantity(cartItem.id, quantity - 1),
-      600
-    ),
+    debounce((cartItem, quantity) => {
+      updateQuantity(cartItem.id, quantity - 1);
+    }, 500),
     []
   );
 
@@ -49,8 +53,14 @@ export default function AddToCart({
           <Button
             className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
             onClick={() => {
-              decrementHandler(cartItem, quantity);
-              decrementQuantity(cartItem, quantity, setQuantity, () => {});
+              decrementQuantity(
+                cartItem,
+                quantity,
+                setQuantity,
+                setCart,
+                decrementHandler,
+                setPrice
+              );
             }}
             type="button"
           >
@@ -60,8 +70,13 @@ export default function AddToCart({
           <Button
             className=" bg-yellow-300 shadow outline-none hover:bg-yellow-400 active:bg-yellow-600"
             onClick={() => {
-              incrementHandler(cartItem, quantity);
-              setQuantity(quantity + 1);
+              incrementQuantity(
+                cartItem,
+                quantity,
+                setQuantity,
+                incrementHandler,
+                setPrice
+              );
             }}
             type="button"
           >

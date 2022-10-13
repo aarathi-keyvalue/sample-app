@@ -176,16 +176,37 @@ export async function checkProduct(id) {
   return data.productQuantityInCart;
 }
 
-export async function decrementQuantity(item, quantity, setQuantity, setCart) {
+export async function decrementQuantity(
+  item,
+  quantity,
+  setQuantity,
+  setCart,
+  decrementHandler,
+  setPrice
+) {
   if (quantity == 1) {
-    deleteCart(item.id).then((data) => {
+    deleteCart(item.id).then(() => {
       getCart().then((data) => {
-        if (setCart != null){
         setCart(data);
-        }
       });
     });
+    decrementHandler.cancel();
+  } else {
+    decrementHandler(item, quantity);
   }
+
   setQuantity(quantity - 1);
+  setPrice((currPrice) => currPrice - item.product.price);
 }
 
+export async function incrementQuantity(
+  cartItem,
+  quantity,
+  setQuantity,
+  incrementHandler,
+  setPrice
+) {
+  incrementHandler(cartItem, quantity);
+  setQuantity(quantity + 1);
+  setPrice((currPrice) => currPrice + cartItem.product.price);
+}
